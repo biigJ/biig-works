@@ -6,7 +6,7 @@
     <title>biig Interior | Interior Design &amp; Architektur</title>
     <meta
       name="description"
-      content="Raum anpassen, Lebensentwurf leben. Interior Design und Architektur — von Zimmerecke bis Villa. Transparent ab 200 €."
+      content="Raum anpassen, Lebensentwurf leben. Interior Design und Architektur. Von Zimmerecke bis Villa. Transparent ab 200 €."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,6 +17,7 @@
     <style>
       body.biig-interior-page {
         --bg: #ffffff;
+        --bi-nav-beige: #beb9aa;
         --bi-hero-head: clamp(2rem, min(11.5vw, 9.2cqw), 4.85rem);
         --bi-mood-filter: saturate(0.68) sepia(0.24) contrast(0.92) brightness(1.04);
         background: #ffffff;
@@ -35,7 +36,13 @@
       }
 
       .biig-interior-page .nav {
-        background: color-mix(in srgb, #ffffff 92%, transparent);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 120;
+        background: var(--bi-nav-beige);
+        border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
       }
 
       .biig-interior-page .bi-nav__inner {
@@ -50,36 +57,90 @@
         min-width: 0;
       }
 
-      .biig-interior-page .bi-nav__services {
+      .biig-interior-page .bi-nav__service-wrap {
         justify-self: center;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: clamp(10px, 1.6vw, 22px);
-        margin: 0;
-        padding: 0;
-        list-style: none;
+        position: relative;
       }
 
-      .biig-interior-page .bi-nav__services a {
+      .bi-nav__service-toggle {
+        margin: 0;
+        padding: 6px 0;
+        border: 0;
+        background: transparent;
         font-family: var(--font-sans);
         font-size: clamp(0.58rem, 0.82vw, 0.72rem);
         font-weight: 500;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        text-decoration: none;
         color: var(--text);
-        white-space: nowrap;
-        padding: 4px 0;
-        border-bottom: 1px solid transparent;
-        transition: border-color 0.15s ease, opacity 0.15s ease;
+        cursor: pointer;
       }
 
-      .biig-interior-page .bi-nav__services a:hover,
-      .biig-interior-page .bi-nav__services a:focus-visible {
-        border-bottom-color: currentColor;
+      .bi-nav__service-toggle:hover,
+      .bi-nav__service-toggle:focus-visible,
+      .bi-nav__service-toggle.is-open {
         outline: none;
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+
+      .bi-service-panel {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(36rem, calc(100vw - 2 * var(--nav-pad-x)));
+        padding: clamp(10px, 1.5vw, 14px);
+        background: var(--bi-nav-beige);
+        border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+        z-index: 130;
+      }
+
+      .bi-service-panel[hidden] {
+        display: none !important;
+      }
+
+      .bi-service-panel__item {
+        display: block;
+        padding: clamp(14px, 2vw, 18px);
+        border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+        background: #0a0a0a;
+        color: #f5f3ee;
+        text-decoration: none;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+
+      .bi-service-panel__item + .bi-service-panel__item {
+        margin-top: clamp(8px, 1.2vw, 10px);
+      }
+
+      .bi-service-panel__item:hover,
+      .bi-service-panel__item:focus-visible {
+        border-color: #f5f3ee;
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .bi-service-panel__title {
+        display: block;
+        margin: 0 0 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid color-mix(in srgb, #f5f3ee 18%, transparent);
+        font-family: var(--font-sans);
+        font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+        font-weight: 600;
+        line-height: 1.25;
+      }
+
+      .bi-service-panel__sub {
+        display: block;
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: clamp(0.78rem, 0.95vw, 0.86rem);
+        font-weight: 300;
+        line-height: 1.45;
+        color: color-mix(in srgb, #f5f3ee 78%, #0a0a0a);
       }
 
       .biig-interior-page .bi-nav__actions {
@@ -130,33 +191,36 @@
 
       @media (max-width: 760px) {
         .biig-interior-page .bi-nav__inner {
-          grid-template-columns: 1fr;
-          justify-items: center;
-          text-align: center;
+          grid-template-columns: 1fr auto;
+          grid-template-rows: auto auto;
         }
 
-        .biig-interior-page .bi-nav__brand,
-        .biig-interior-page .bi-nav__services,
+        .biig-interior-page .bi-nav__brand {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
         .biig-interior-page .bi-nav__actions {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .biig-interior-page .bi-nav__service-wrap {
+          grid-column: 1 / -1;
+          grid-row: 2;
           justify-self: center;
           width: 100%;
         }
 
-        .biig-interior-page .bi-nav__services {
-          overflow-x: auto;
-          flex-wrap: nowrap;
-          justify-content: flex-start;
-          padding-bottom: 4px;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-        }
-
-        .biig-interior-page .bi-nav__services::-webkit-scrollbar {
-          display: none;
+        .bi-service-panel {
+          left: 0;
+          right: 0;
+          transform: none;
+          width: 100%;
         }
 
         .biig-interior-page .bi-nav__actions {
-          justify-content: center;
+          justify-content: flex-end;
         }
       }
 
@@ -192,49 +256,96 @@
 
       /* -- Hero -- */
       .bi-hero {
-        padding: clamp(36px, 5vw, 64px) 0 clamp(24px, 4vw, 40px);
+        position: relative;
+        padding: 0;
+        margin: 0;
       }
 
-      .bi-hero__intro {
-        margin: 0 0 clamp(28px, 4vw, 48px);
-        max-width: 22ch;
+      .bi-hero .bi-shell {
+        max-width: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .bi-hero__figure {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        line-height: 0;
+        min-height: clamp(440px, 78vh, 760px);
+        aspect-ratio: auto;
+        background: #1a1a1a;
+      }
+
+      .bi-hero__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(16px, 2.5vw, 24px);
+        padding: calc(var(--fc-nav-h, 72px) + clamp(20px, 3vw, 32px)) var(--nav-pad-x)
+          clamp(20px, 3vw, 28px);
+        pointer-events: none;
+        text-align: center;
+      }
+
+      .bi-hero__overlay > * {
+        pointer-events: auto;
+      }
+
+      .bi-hero__headline {
+        margin: 0;
+        max-width: 18ch;
         font-family: var(--font-sans);
-        font-size: calc(var(--bi-hero-head) * 0.667);
+        font-size: clamp(1.35rem, 2.8vw, 2.35rem);
         font-weight: 200;
-        line-height: 1.08;
+        line-height: 1.12;
         letter-spacing: -0.02em;
         text-transform: uppercase;
-        color: var(--text);
+        color: #ffffff;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
       }
 
-      .bi-hero__intro-line {
-        display: block;
-      }
-
-      .bi-hero__intro-line + .bi-hero__intro-line {
-        margin-top: 0.12em;
-      }
-
-      .bi-hero__tags {
+      .bi-hero__wordboxes {
         display: flex;
         flex-wrap: wrap;
-        gap: clamp(8px, 1.2vw, 12px);
-        margin: 0 0 clamp(20px, 3vw, 32px);
+        align-items: center;
+        justify-content: center;
+        gap: clamp(6px, 1vw, 10px);
+        margin: 0;
         padding: 0;
         list-style: none;
+        max-width: min(40rem, 100%);
       }
 
-      .bi-hero__tag {
+      .bi-hero__wordbox {
         display: inline-flex;
         align-items: center;
         padding: 6px 12px;
-        border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+        background: rgba(190, 185, 170, 0.92);
+        color: #0a0a0a;
         font-family: var(--font-sans);
         font-size: clamp(0.62rem, 0.85vw, 0.74rem);
         font-weight: 500;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: color-mix(in srgb, var(--text) 82%, #ffffff);
+      }
+
+      .bi-hero__paths {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(10px, 1.5vw, 14px);
+        width: min(44rem, 100%);
+        margin-top: clamp(8px, 1.5vw, 16px);
+      }
+
+      .bi-hero__mission-wrap {
+        max-width: var(--content-max);
+        margin: 0 auto;
+        padding: clamp(28px, 4vw, 48px) var(--nav-pad-x);
       }
 
       .bi-section {
@@ -376,7 +487,7 @@
       }
 
       .bi-compare__list li::before {
-        content: "—";
+        content: "·";
         position: absolute;
         left: 0;
         opacity: 0.5;
@@ -413,7 +524,7 @@
 
       .bi-pricing__grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: clamp(10px, 1.5vw, 16px);
       }
 
@@ -477,6 +588,22 @@
         position: absolute;
         left: 0;
         font-size: 0.85em;
+      }
+
+      .bi-pricing__footer {
+        margin-top: clamp(24px, 3vw, 36px);
+        text-align: center;
+      }
+
+      .bi-pricing__footer .bi-pricing-card__cta {
+        display: inline-flex;
+      }
+
+      .bi-hero__paths .bi-path-card {
+        min-height: auto;
+        background: color-mix(in srgb, #ffffff 92%, transparent);
+        border-color: color-mix(in srgb, #ffffff 40%, transparent);
+        text-align: left;
       }
 
       .bi-pricing-card__cta,
@@ -603,6 +730,12 @@
         display: block;
       }
 
+      @media (max-width: 1200px) {
+        .bi-pricing__grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
       @media (max-width: 980px) {
         .bi-compare,
         .bi-process__grid {
@@ -615,19 +748,10 @@
       }
 
       @media (max-width: 640px) {
-        .bi-paths,
-        .bi-pricing__grid {
+        .bi-pricing__grid,
+        .bi-hero__paths {
           grid-template-columns: 1fr;
         }
-      }
-
-      .bi-hero__figure {
-        position: relative;
-        margin: 0;
-        overflow: hidden;
-        line-height: 0;
-        aspect-ratio: 16 / 10;
-        background: #1a1a1a;
       }
 
       .bi-hero__slider {
@@ -814,23 +938,7 @@
       }
 
       .bi-hero__slogan {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        padding: clamp(16px, 3vw, 32px);
-        font-family: var(--font-sans);
-        font-size: clamp(1rem, 2.2vw, 1.65rem);
-        font-weight: 300;
-        line-height: 1.35;
-        letter-spacing: 0.02em;
-        text-align: center;
-        color: #f0eee6;
-        text-shadow: 0 1px 24px rgba(0, 0, 0, 0.45);
-        pointer-events: none;
+        display: none;
       }
 
       .bi-hero__figure::after {
@@ -1982,8 +2090,8 @@
         }
 
         .biig-interior-page.bi-nav-over-tiles .nav {
-          background: transparent;
-          background-color: transparent;
+          background: var(--bi-nav-beige);
+          background-color: var(--bi-nav-beige);
           -webkit-backdrop-filter: none;
           backdrop-filter: none;
         }
@@ -2015,7 +2123,7 @@
         }
 
         .bi-hero {
-          padding-top: calc(clamp(36px, 5vw, 64px) + 92px + env(safe-area-inset-top, 0px));
+          padding-top: 0;
         }
 
         .bi-grid {
@@ -2489,13 +2597,40 @@
         <a href="index.html" class="nav__logo bi-brand-logo bi-nav__brand" aria-label="biig Interior Startseite">
           biig Interior
         </a>
-        <nav class="bi-nav__services" aria-label="Leistungen">
-          <a href="#bi-service-design"><span class="de-t">Design</span><span class="en-t">Design</span></a>
-          <a href="#bi-service-ordnung"><span class="de-t">Ordnung</span><span class="en-t">Order</span></a>
-          <a href="#bi-service-handwerker"><span class="de-t">Handwerker-Plan</span><span class="en-t">Trades plan</span></a>
-          <a href="#bi-service-hochbau"><span class="de-t">Hochbau</span><span class="en-t">Structural</span></a>
-          <a href="#bi-service-moebel"><span class="de-t">Möbel</span><span class="en-t">Furniture</span></a>
-        </nav>
+        <div class="bi-nav__service-wrap">
+          <button
+            type="button"
+            class="bi-nav__service-toggle"
+            id="bi-service-toggle"
+            aria-expanded="false"
+            aria-controls="bi-service-panel"
+          >
+            <span class="de-t">Service</span>
+            <span class="en-t">Services</span>
+          </button>
+          <div id="bi-service-panel" class="bi-service-panel" hidden>
+            <a class="bi-service-panel__item" href="#bi-pricing-ordnung">
+              <span class="bi-service-panel__title"><span class="de-t">Sortieren &amp; Ordnung</span><span class="en-t">Sorting &amp; order</span></span>
+              <span class="bi-service-panel__sub"><span class="de-t">Hilfe beim Sortieren Deiner Ideen und/oder Deines Hab &amp; Guts.</span><span class="en-t">Help sorting your ideas and/or what you own.</span></span>
+            </a>
+            <a class="bi-service-panel__item" href="#bi-pricing-design">
+              <span class="bi-service-panel__title"><span class="de-t">Design</span><span class="en-t">Design</span></span>
+              <span class="bi-service-panel__sub"><span class="de-t">Von Zimmerecke bis Villa. Von Computertisch bis Headquarter.</span><span class="en-t">From a room corner to a villa. From a desk to headquarters.</span></span>
+            </a>
+            <a class="bi-service-panel__item" href="#bi-pricing-handwerker">
+              <span class="bi-service-panel__title"><span class="de-t">Plan für Handwerker</span><span class="en-t">Trades plan</span></span>
+              <span class="bi-service-panel__sub"><span class="de-t">Du: Wunsch. Ich: Plan für den Handwerker.</span><span class="en-t">You: the vision. Me: the plan for the trades.</span></span>
+            </a>
+            <a class="bi-service-panel__item" href="#bi-pricing-hochbau">
+              <span class="bi-service-panel__title"><span class="de-t">Hochbau</span><span class="en-t">Structural work</span></span>
+              <span class="bi-service-panel__sub"><span class="de-t">Bauantragsrelevante Projekte setze ich heute mit einem Partnerbüro um.</span><span class="en-t">Planning permit projects I deliver today with a partner office.</span></span>
+            </a>
+            <a class="bi-service-panel__item" href="#bi-pricing-moebel">
+              <span class="bi-service-panel__title"><span class="de-t">Möbel</span><span class="en-t">Furniture</span></span>
+              <span class="bi-service-panel__sub"><span class="de-t">Möbel an Deinen Ort angepasst. Vom IKEA Hack bis zur hochwertigen Tischlerarbeit.</span><span class="en-t">Furniture tailored to your place. From IKEA hacks to high quality joinery.</span></span>
+            </a>
+          </div>
+        </div>
         <div class="nav__cta-bucket bi-nav__actions">
           <a class="bi-nav__cta bi-nav__cta--calendly" href="#" data-bi-calendly>
             <span class="de-t">Termin buchen</span>
@@ -2511,25 +2646,8 @@
     </header>
 
     <main>
-      <section class="bi-hero" aria-labelledby="bi-hero-intro">
+      <section class="bi-hero" aria-labelledby="bi-hero-headline">
         <div class="bi-shell">
-          <h1 id="bi-hero-intro" class="bi-hero__intro">
-            <span class="bi-hero__intro-line">
-              <span class="de-t">Raum anpassen.</span>
-              <span class="en-t">Adapt your space.</span>
-            </span>
-            <span class="bi-hero__intro-line">
-              <span class="de-t">Lebensentwurf leben.</span>
-              <span class="en-t">Live your life design.</span>
-            </span>
-          </h1>
-          <ul class="bi-hero__tags" aria-label="Leistungen">
-            <li class="bi-hero__tag"><span class="de-t">Interior Design</span><span class="en-t">Interior design</span></li>
-            <li class="bi-hero__tag"><span class="de-t">Raumplanung</span><span class="en-t">Space planning</span></li>
-            <li class="bi-hero__tag"><span class="de-t">Handwerker-Plan</span><span class="en-t">Trades plan</span></li>
-            <li class="bi-hero__tag"><span class="de-t">Hochbau</span><span class="en-t">Structural work</span></li>
-            <li class="bi-hero__tag"><span class="de-t">Möbel</span><span class="en-t">Furniture</span></li>
-          </ul>
           <figure class="bi-hero__figure">
             <div class="bi-hero__slider" aria-hidden="false">
               <div class="bi-hero__track" id="bi-hero-track"></div>
@@ -2539,7 +2657,48 @@
                 <button type="button" class="bi-hero__arrow bi-hero__arrow--next" id="bi-hero-next" aria-label="Nächstes Bild"><span aria-hidden="true">›</span></button>
               </div>
             </div>
-            <p class="bi-hero__slogan">
+            <div class="bi-hero__overlay">
+              <h1 id="bi-hero-headline" class="bi-hero__headline">
+                <span class="de-t">Finde die richtigen Mittel für Deine Alltagsarchitektur. Umsetzungsstark &amp; Authentisch.</span>
+                <span class="en-t">Find the right tools for your everyday architecture. Strong in execution &amp; authentic.</span>
+              </h1>
+              <ul class="bi-hero__wordboxes" aria-label="Leistungen">
+                <li class="bi-hero__wordbox"><span class="de-t">Sortieren</span><span class="en-t">Sorting</span></li>
+                <li class="bi-hero__wordbox"><span class="de-t">Design</span><span class="en-t">Design</span></li>
+                <li class="bi-hero__wordbox"><span class="de-t">Handwerker</span><span class="en-t">Trades</span></li>
+                <li class="bi-hero__wordbox"><span class="de-t">Hochbau</span><span class="en-t">Structural</span></li>
+                <li class="bi-hero__wordbox"><span class="de-t">Möbel</span><span class="en-t">Furniture</span></li>
+              </ul>
+              <div class="bi-hero__paths">
+                <a class="bi-path-card" href="#biig-konfigurator" onclick="return bkStartWithTrack('arrangement');">
+                  <div>
+                    <h2 class="bi-path-card__title">
+                      <span class="de-t">Vom Gefühl zum Plan</span>
+                      <span class="en-t">From feeling to plan</span>
+                    </h2>
+                    <p class="bi-path-card__text">
+                      <span class="de-t">Du hast eine Idee oder nur ein Gefühl? Wir sammeln alles und entwickeln ein umsetzbares Konzept aus Deinen Zielen und Ressourcen.</span>
+                      <span class="en-t">You have an idea or just a feeling? We gather everything and develop an actionable concept from your goals and resources.</span>
+                    </p>
+                  </div>
+                  <span class="bi-path-card__link"><span class="de-t">Projekt starten</span><span class="en-t">Start project</span> ›</span>
+                </a>
+                <a class="bi-path-card" href="#" data-bi-calendly>
+                  <div>
+                    <h2 class="bi-path-card__title">
+                      <span class="de-t">Erstgespräch buchen</span>
+                      <span class="en-t">Book an intro call</span>
+                    </h2>
+                    <p class="bi-path-card__text">
+                      <span class="de-t">Kurz austauschen, wo Du stehst. Ob mit Plan oder nur einem vagen Gedanken. Berlin oder remote.</span>
+                      <span class="en-t">A short exchange about where you are. With a plan or just a vague thought. Berlin or remote.</span>
+                    </p>
+                  </div>
+                  <span class="bi-path-card__link"><span class="de-t">Termin buchen</span><span class="en-t">Book a call</span> ›</span>
+                </a>
+              </div>
+            </div>
+            <p class="bi-hero__slogan" hidden>
               <span class="de-t">Finde die richtigen Mittel für Deine Alltagsarchitektur.<br />Umsetzungsstark &amp; Authentisch.</span>
               <span class="en-t">Find the right tools for your everyday architecture.<br />Strong in execution &amp; authentic.</span>
             </p>
@@ -2550,7 +2709,7 @@
               <span class="bi-hero__sound-icon" aria-hidden="true">♪</span>
             </button>
           </figure>
-          <div class="bi-hero__mission">
+          <div class="bi-hero__mission-wrap bi-hero__mission">
             <p>
               <span class="de-t"
                 >Mission von biig Interior ist es, jedem Menschen zu helfen, der den Wunsch hat, die persönliche
@@ -2567,43 +2726,10 @@
                 Thinking. An deine Lebensgestaltung angepasst, lebensnah, pragmatisch und ästhetisch funktional.</span
               >
               <span class="en-t"
-                >The spaces in which we live and work influence exactly that. Interior design as first-principles
+                >The spaces in which we live and work influence exactly that. Interior design as first principles
                 thinking. Adapted to your life design, close to life, pragmatic, and aesthetically functional.</span
               >
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="bi-section bi-section--tight-top" aria-labelledby="bi-paths-title">
-        <div class="bi-shell">
-          <div class="bi-paths">
-            <a class="bi-path-card" href="#biig-konfigurator" onclick="return bkStartWithTrack('arrangement');">
-              <div>
-                <h2 class="bi-path-card__title" id="bi-paths-title">
-                  <span class="de-t">Vom Gefühl zum Plan</span>
-                  <span class="en-t">From feeling to plan</span>
-                </h2>
-                <p class="bi-path-card__text">
-                  <span class="de-t">Du hast eine Idee oder nur ein Gefühl? Wir sammeln alles und entwickeln ein umsetzbares Konzept aus Deinen Zielen und Ressourcen.</span>
-                  <span class="en-t">You have an idea or just a feeling? We gather everything and develop an actionable concept from your goals and resources.</span>
-                </p>
-              </div>
-              <span class="bi-path-card__link"><span class="de-t">Kostenrechner starten</span><span class="en-t">Start fee calculator</span> ›</span>
-            </a>
-            <a class="bi-path-card" href="#" data-bi-calendly>
-              <div>
-                <h2 class="bi-path-card__title">
-                  <span class="de-t">Erstgespräch buchen</span>
-                  <span class="en-t">Book an intro call</span>
-                </h2>
-                <p class="bi-path-card__text">
-                  <span class="de-t">Kurz austauschen, wo Du stehst — ob mit Plan oder nur einem vagen Gedanken. Berlin oder remote.</span>
-                  <span class="en-t">A short exchange about where you are — with a plan or just a vague thought. Berlin or remote.</span>
-                </p>
-              </div>
-              <span class="bi-path-card__link"><span class="de-t">Termin buchen</span><span class="en-t">Book a call</span> ›</span>
-            </a>
           </div>
         </div>
       </section>
@@ -2645,9 +2771,9 @@
               <h3 class="bi-compare__head">biig Interior</h3>
               <ul class="bi-compare__list">
                 <li><span class="de-t">Schnelle, umsetzbare Konzepte</span><span class="en-t">Fast, actionable concepts</span></li>
-                <li><span class="de-t">Transparent ab 200 € — Kostenrechner inklusive</span><span class="en-t">Transparent from €200 — fee calculator included</span></li>
+                <li><span class="de-t">Transparent ab 200 €, Kostenrechner inklusive</span><span class="en-t">Transparent from €200, fee calculator included</span></li>
                 <li><span class="de-t">First-Principles: angepasst an Deinen Lebensentwurf</span><span class="en-t">First principles: adapted to your life design</span></li>
-                <li><span class="de-t">Begleitung bis zur Übergabe — auch ohne Angst vorm Scheitern</span><span class="en-t">Support through handover — without fear of failure</span></li>
+                <li><span class="de-t">Begleitung bis zur Übergabe, auch ohne Angst vorm Scheitern</span><span class="en-t">Support through handover, without fear of failure</span></li>
               </ul>
             </div>
           </div>
@@ -2663,7 +2789,7 @@
           <div class="bi-portfolio__lede" id="bi-space-anpassen">
             <p>
               <span class="de-t"
-                >Wo auch immer Du stehst, ob mit einem Plan oder nur einem Gefühl - hier sammeln wir alles und fügen es
+                >Wo auch immer Du stehst, ob mit einem Plan oder nur einem Gefühl, hier sammeln wir alles und fügen es
                 zu einem Projekt zusammen. Schnelle, umsetzungsstarke Konzepte aus Deinen Zielen, Kapazitäten und
                 Ressourcen. Du bekommst volle, professionelle Unterstützung.</span
               >
@@ -2675,7 +2801,6 @@
             </p>
           </div>
           <div class="bi-grid">
-            <!-- Zeile 1 -->
             <div class="bi-image-row">
               <div class="bi-image-row__scroll">
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="dieffe33">
@@ -2691,26 +2816,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-            <div class="bi-tile bi-tile--offer bi-tile--offer-compact" id="bi-service-design">
-              <h3 class="bi-tile__headline">
-                <span class="de-t">Design! Von Zimmerecke bis Villa. Von Computertisch bis Headquarter.</span>
-                <span class="en-t">Design! From a room corner to a villa. From a desk to headquarters.</span>
-              </h3>
-              <p class="bi-tile__price">
-                <span class="de-t">ab 450 €<br />abhängig vom Umfang</span>
-                <span class="en-t">from €450<br />depending on scope</span>
-              </p>
-              <div class="bi-tile__actions">
-                <a class="bi-tile__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('arrangement');">
-                  <span class="de-t">Kostenrechner</span>
-                  <span class="en-t">Fee calculator</span>
-                </a>
-                <button type="button" class="bi-tile__more" data-bi-offer="arrangement">
-                  <span class="de-t">mehr</span>
-                  <span class="en-t">more</span>
-                </button>
-              </div>
-            </div>
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="altbauwohnung">
               <span class="bi-tile__media">
                 <img src="assets/interior/altbau_mitfakekamin-01.png" alt="" width="1536" height="2576" decoding="async" />
@@ -2737,12 +2842,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-              </div>
-            </div>
-
-            <!-- Zeile 2 -->
-            <div class="bi-image-row">
-              <div class="bi-image-row__scroll">
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="zweihaeuser">
               <span class="bi-tile__media">
                 <img src="assets/interior/traudi-küche.png" alt="" width="2193" height="1606" decoding="async" />
@@ -2756,6 +2855,11 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
+              </div>
+            </div>
+
+            <div class="bi-image-row">
+              <div class="bi-image-row__scroll">
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="loft">
               <span class="bi-tile__media">
                 <img src="assets/interior/loftbalkon.png?v=2" alt="" width="1306" height="2430" decoding="async" />
@@ -2769,26 +2873,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-            <div class="bi-tile bi-tile--offer bi-tile--offer-compact" id="bi-service-ordnung">
-              <h3 class="bi-tile__headline">
-                <span class="de-t">Hilfe beim Sortieren Deiner Ideen und/oder Deines Hab &amp; Guts.</span>
-                <span class="en-t">Help sorting your ideas and/or what you own.</span>
-              </h3>
-              <p class="bi-tile__price">
-                <span class="de-t">ab 200 €<br />abhängig vom Umfang</span>
-                <span class="en-t">from €200<br />depending on scope</span>
-              </p>
-              <div class="bi-tile__actions">
-                <a class="bi-tile__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('ordnung');">
-                  <span class="de-t">Kostenrechner</span>
-                  <span class="en-t">Fee calculator</span>
-                </a>
-                <button type="button" class="bi-tile__more" data-bi-offer="sortieren">
-                  <span class="de-t">mehr</span>
-                  <span class="en-t">more</span>
-                </button>
-              </div>
-            </div>
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="ordnung">
               <span class="bi-tile__media">
                 <img src="assets/interior/ordnung-01.png" alt="" width="1661" height="2382" decoding="async" />
@@ -2802,12 +2886,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-              </div>
-            </div>
-
-            <!-- Zeile 3 -->
-            <div class="bi-image-row">
-              <div class="bi-image-row__scroll">
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="oase">
               <span class="bi-tile__media">
                 <img src="assets/interior/oase-neopainting.png" alt="" width="2380" height="1617" decoding="async" />
@@ -2821,26 +2899,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-            <div class="bi-tile bi-tile--offer bi-tile--offer-compact" id="bi-service-handwerker">
-              <h3 class="bi-tile__headline">
-                <span class="de-t">Du: Wunsch. Ich: Plan für den Handwerker.</span>
-                <span class="en-t">You: the vision. Me: the plan for the trades.</span>
-              </h3>
-              <p class="bi-tile__price">
-                <span class="de-t">ab 1.000 €<br />abhängig vom Umfang</span>
-                <span class="en-t">from €1,000<br />depending on scope</span>
-              </p>
-              <div class="bi-tile__actions">
-                <a class="bi-tile__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('allinclusive');">
-                  <span class="de-t">Kostenrechner</span>
-                  <span class="en-t">Fee calculator</span>
-                </a>
-                <button type="button" class="bi-tile__more" data-bi-offer="allinklusive">
-                  <span class="de-t">mehr</span>
-                  <span class="en-t">more</span>
-                </button>
-              </div>
-            </div>
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="umbauten">
               <span class="bi-tile__media">
                 <img src="assets/interior/rene-möbliert-01.png" alt="" width="800" height="1067" decoding="async" />
@@ -2854,6 +2912,11 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
+              </div>
+            </div>
+
+            <div class="bi-image-row">
+              <div class="bi-image-row__scroll">
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="vinothek">
               <span class="bi-tile__media bi-tile__media--split">
                 <span class="bi-tile__media-half">
@@ -2872,32 +2935,6 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
-              </div>
-            </div>
-
-            <!-- Zeile 4 -->
-            <div class="bi-image-row">
-              <div class="bi-image-row__scroll">
-            <div class="bi-tile bi-tile--offer bi-tile--offer-compact" id="bi-service-hochbau">
-              <h3 class="bi-tile__headline">
-                <span class="de-t"
-                  >Hochbau und bauantragsrelevante Projekte setze ich heute mit einem Partnerbüro um.</span
-                >
-                <span class="en-t"
-                  >Structural and planning-permit projects I deliver today with a partner office.</span
-                >
-              </h3>
-              <div class="bi-tile__actions">
-                <a class="bi-tile__cta" href="#" data-bi-calendly>
-                  <span class="de-t">Rückruf</span>
-                  <span class="en-t">Callback</span>
-                </a>
-                <button type="button" class="bi-tile__more" data-bi-offer="hochbau">
-                  <span class="de-t">mehr</span>
-                  <span class="en-t">more</span>
-                </button>
-              </div>
-            </div>
             <div
               class="bi-tile bi-tile--project bi-tile--hochbau-collage"
               id="bi-hochbau-collage"
@@ -2911,26 +2948,6 @@
                 <span class="de-t">Bauprojekte</span>
                 <span class="en-t">Building projects</span>
               </span>
-            </div>
-            <div class="bi-tile bi-tile--offer bi-tile--offer-compact" id="bi-service-moebel">
-              <h3 class="bi-tile__headline">
-                <span class="de-t"
-                  >Möbel an Deinen Ort angepasst. Vom IKEA-Hack bis zur hochwertigen Tischlerarbeit.</span
-                >
-                <span class="en-t"
-                  >Furniture tailored to your place. From IKEA hacks to high-quality joinery.</span
-                >
-              </h3>
-              <div class="bi-tile__actions">
-                <a class="bi-tile__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('arrangement');">
-                  <span class="de-t">Kostenrechner</span>
-                  <span class="en-t">Fee calculator</span>
-                </a>
-                <button type="button" class="bi-tile__more" data-bi-offer="moebelangebot">
-                  <span class="de-t">mehr</span>
-                  <span class="en-t">more</span>
-                </button>
-              </div>
             </div>
             <div class="bi-tile bi-tile--project" data-bi-project="moebel" role="button" tabindex="0">
               <span class="bi-tile__media">
@@ -2970,11 +2987,11 @@
           <div class="bi-process__grid">
             <article class="bi-process__item">
               <h3><span class="de-t">Erstes Gespräch</span><span class="en-t">First conversation</span></h3>
-              <p><span class="de-t">Wo stehst Du — mit Plan, Gefühl oder konkretem Problem? Wir klären Ziele und nächsten Schritt.</span><span class="en-t">Where are you — with a plan, a feeling, or a concrete problem? We clarify goals and the next step.</span></p>
+              <p><span class="de-t">Wo stehst Du? Mit Plan, Gefühl oder konkretem Problem? Wir klären Ziele und nächsten Schritt.</span><span class="en-t">Where are you? With a plan, a feeling, or a concrete problem? We clarify goals and the next step.</span></p>
             </article>
             <article class="bi-process__item">
               <h3><span class="de-t">Kostenrechner</span><span class="en-t">Fee calculator</span></h3>
-              <p><span class="de-t">Honorar und Umfang transparent — bevor Du Dich festlegst. Angepasst an Größe und Leistung.</span><span class="en-t">Fee and scope transparent — before you commit. Adapted to size and service.</span></p>
+              <p><span class="de-t">Honorar und Umfang transparent, bevor Du Dich festlegst. Angepasst an Größe und Leistung.</span><span class="en-t">Fee and scope transparent, before you commit. Adapted to size and service.</span></p>
             </article>
             <article class="bi-process__item">
               <h3><span class="de-t">Konzept</span><span class="en-t">Concept</span></h3>
@@ -2982,15 +2999,15 @@
             </article>
             <article class="bi-process__item">
               <h3><span class="de-t">Plan für Umsetzung</span><span class="en-t">Plan for execution</span></h3>
-              <p><span class="de-t">Deine Idee wird übersetzt — als Zeichnung, Liste und Visualisierung für Handwerker oder Eigenleistung.</span><span class="en-t">Your idea is translated — as drawing, list, and visual for trades or DIY.</span></p>
+              <p><span class="de-t">Deine Idee wird übersetzt als Zeichnung, Liste und Visualisierung für Handwerker oder Eigenleistung.</span><span class="en-t">Your idea is translated as drawing, list, and visual for trades or DIY.</span></p>
             </article>
             <article class="bi-process__item">
               <h3><span class="de-t">Begleitung</span><span class="en-t">Guidance</span></h3>
-              <p><span class="de-t">Handwerker finden, abstimmen, koordinieren — wenn Du das möchtest, ohne dass Du alles allein tragen musst.</span><span class="en-t">Finding trades, aligning, coordinating — if you want, without carrying everything alone.</span></p>
+              <p><span class="de-t">Handwerker finden, abstimmen, koordinieren, wenn Du das möchtest, ohne dass Du alles allein tragen musst.</span><span class="en-t">Finding trades, aligning, coordinating, if you want, without carrying everything alone.</span></p>
             </article>
             <article class="bi-process__item">
               <h3><span class="de-t">Übergabe</span><span class="en-t">Handover</span></h3>
-              <p><span class="de-t">Dein Projekt zum Wohlfühlen — zum Zeitpunkt, den Du möchtest.</span><span class="en-t">Your project ready to feel at home — when you want it.</span></p>
+              <p><span class="de-t">Dein Projekt zum Wohlfühlen, zum Zeitpunkt, den Du möchtest.</span><span class="en-t">Your project ready to feel at home, when you want it.</span></p>
             </article>
           </div>
         </div>
@@ -3007,21 +3024,10 @@
             <span class="en-t">Packages at a glance</span>
           </h2>
           <p class="bi-section__lede">
-            <span class="de-t">Alle Preise sind Startpunkte — der Kostenrechner gibt Dir eine erste Orientierung nach Umfang und Leistung.</span>
-            <span class="en-t">All prices are starting points — the fee calculator gives you a first orientation by scope and service.</span>
+            <span class="de-t">Alle Preise sind Startpunkte. Der Kostenrechner gibt Dir eine erste Orientierung nach Umfang und Leistung.</span>
+            <span class="en-t">All prices are starting points. The fee calculator gives you a first orientation by scope and service.</span>
           </p>
           <div class="bi-pricing__grid">
-            <article class="bi-pricing-card" id="bi-pricing-design">
-              <h3 class="bi-pricing-card__title"><span class="de-t">Design</span><span class="en-t">Design</span></h3>
-              <p class="bi-pricing-card__price"><span class="de-t">ab 450 €</span><span class="en-t">from €450</span></p>
-              <p class="bi-pricing-card__note"><span class="de-t">Von Zimmerecke bis Villa</span><span class="en-t">From a room corner to a villa</span></p>
-              <ul class="bi-pricing-card__list">
-                <li><span class="de-t">Konzept aus Zielen &amp; Ressourcen</span><span class="en-t">Concept from goals &amp; resources</span></li>
-                <li><span class="de-t">Material, Licht, Möbel, Farbe</span><span class="en-t">Materials, light, furniture, colour</span></li>
-                <li><span class="de-t">DIY oder Handwerk</span><span class="en-t">DIY or trades</span></li>
-              </ul>
-              <a class="bi-pricing-card__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('arrangement');"><span class="de-t">Kostenrechner</span><span class="en-t">Calculator</span></a>
-            </article>
             <article class="bi-pricing-card" id="bi-pricing-ordnung">
               <h3 class="bi-pricing-card__title"><span class="de-t">Sortieren &amp; Ordnung</span><span class="en-t">Sorting &amp; order</span></h3>
               <p class="bi-pricing-card__price"><span class="de-t">ab 200 €</span><span class="en-t">from €200</span></p>
@@ -3031,7 +3037,16 @@
                 <li><span class="de-t">Entscheidungshilfen pro Raum</span><span class="en-t">Decision tools per room</span></li>
                 <li><span class="de-t">Ohne Druck, ohne Vorurteile</span><span class="en-t">Without pressure or judgement</span></li>
               </ul>
-              <a class="bi-pricing-card__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('ordnung');"><span class="de-t">Kostenrechner</span><span class="en-t">Calculator</span></a>
+            </article>
+            <article class="bi-pricing-card" id="bi-pricing-design">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Design</span><span class="en-t">Design</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">ab 450 €</span><span class="en-t">from €450</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">Von Zimmerecke bis Villa</span><span class="en-t">From a room corner to a villa</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Konzept aus Zielen &amp; Ressourcen</span><span class="en-t">Concept from goals &amp; resources</span></li>
+                <li><span class="de-t">Material, Licht, Möbel, Farbe</span><span class="en-t">Materials, light, furniture, colour</span></li>
+                <li><span class="de-t">DIY oder Handwerk</span><span class="en-t">DIY or trades</span></li>
+              </ul>
             </article>
             <article class="bi-pricing-card" id="bi-pricing-handwerker">
               <h3 class="bi-pricing-card__title"><span class="de-t">Plan für Handwerker</span><span class="en-t">Trades plan</span></h3>
@@ -3042,7 +3057,6 @@
                 <li><span class="de-t">Liste, Visu, Entwurfszeichnung</span><span class="en-t">List, visuals, design drawing</span></li>
                 <li><span class="de-t">Begleitung bis zur Übergabe</span><span class="en-t">Support through handover</span></li>
               </ul>
-              <a class="bi-pricing-card__cta" href="#biig-konfigurator" onclick="return bkStartWithTrack('allinclusive');"><span class="de-t">Kostenrechner</span><span class="en-t">Calculator</span></a>
             </article>
             <article class="bi-pricing-card" id="bi-pricing-hochbau">
               <h3 class="bi-pricing-card__title"><span class="de-t">Hochbau</span><span class="en-t">Structural work</span></h3>
@@ -3053,27 +3067,23 @@
                 <li><span class="de-t">Bauantragsrelevante Projekte</span><span class="en-t">Planning-permit projects</span></li>
                 <li><span class="de-t">Persönliches Erstgespräch</span><span class="en-t">Personal intro call</span></li>
               </ul>
-              <a class="bi-pricing-card__cta bi-pricing-card__cta--ghost" href="#" data-bi-calendly><span class="de-t">Termin buchen</span><span class="en-t">Book a call</span></a>
+            </article>
+            <article class="bi-pricing-card" id="bi-pricing-moebel">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Möbel</span><span class="en-t">Furniture</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">ab 450 €</span><span class="en-t">from €450</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">Vom IKEA Hack bis zur Tischlerarbeit</span><span class="en-t">From IKEA hacks to joinery</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Entwurf und Planung</span><span class="en-t">Design and planning</span></li>
+                <li><span class="de-t">An Deinen Ort angepasst</span><span class="en-t">Tailored to your place</span></li>
+                <li><span class="de-t">DIY oder Tischler</span><span class="en-t">DIY or joiner</span></li>
+              </ul>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="bi-section" aria-labelledby="bi-cta-band-title">
-        <div class="bi-shell">
-          <div class="bi-cta-band">
-            <h2 class="bi-cta-band__title" id="bi-cta-band-title">
-              <span class="de-t">Ein Gespräch. Ein Plan. Los.</span>
-              <span class="en-t">One conversation. One plan. Let's go.</span>
-            </h2>
-            <p class="bi-cta-band__text">
-              <span class="de-t">Starte mit dem Kostenrechner für eine erste Orientierung — oder buche direkt ein Kennenlerngespräch.</span>
-              <span class="en-t">Start with the fee calculator for a first orientation — or book an intro call directly.</span>
-            </p>
-            <div class="bi-cta-band__actions">
-              <a class="bi-cta-band__btn" href="#biig-konfigurator" onclick="if(window.bkGoTo){bkGoTo(0);}return false;"><span class="de-t">Kosten berechnen</span><span class="en-t">Calculate costs</span></a>
-              <a class="bi-cta-band__btn bi-cta-band__btn--ghost" href="#" data-bi-calendly><span class="de-t">Termin buchen</span><span class="en-t">Book a call</span></a>
-            </div>
+          <div class="bi-pricing__footer">
+            <a class="bi-pricing-card__cta" href="#biig-konfigurator" onclick="if(window.bkGoTo){bkGoTo(0);}return false;">
+              <span class="de-t">Kostenrechner starten</span>
+              <span class="en-t">Start fee calculator</span>
+            </a>
           </div>
         </div>
       </section>
@@ -3102,8 +3112,8 @@
                 <span class="en-t">Do I need an architect?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Nicht für jedes Interior-Projekt. Für bauantragsrelevante Hochbau-Themen arbeite ich mit einem Partnerbüro — weil Kammerzugehörigkeit dort nötig ist.</span>
-                <span class="en-t">Not for every interior project. For structural work requiring permits I work with a partner office — because chamber membership is required there.</span>
+                <span class="de-t">Nicht für jedes Interior-Projekt. Für bauantragsrelevante Hochbau-Themen arbeite ich mit einem Partnerbüro, weil Kammerzugehörigkeit dort nötig ist.</span>
+                <span class="en-t">Not for every interior project. For structural work requiring permits I work with a partner office, because chamber membership is required there.</span>
               </p>
             </li>
             <li class="bi-faq__item">
@@ -3112,8 +3122,8 @@
                 <span class="en-t">How does the first conversation work?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Du holst mich ab, wo Du stehst — konkret oder vage. Wir klären Ziele, Kapazitäten und ob wir zusammenkommen. Berlin, telefonisch oder remote.</span>
-                <span class="en-t">You meet me where you are — concrete or vague. We clarify goals, capacity, and whether we fit. Berlin, by phone, or remote.</span>
+                <span class="de-t">Du holst mich ab, wo Du stehst: konkret oder vage. Wir klären Ziele, Kapazitäten und ob wir zusammenkommen. Berlin, telefonisch oder remote.</span>
+                <span class="en-t">You meet me where you are: concrete or vague. We clarify goals, capacity, and whether we fit. Berlin, by phone, or remote.</span>
               </p>
             </li>
             <li class="bi-faq__item">
@@ -3122,8 +3132,8 @@
                 <span class="en-t">What does the fee calculator deliver?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Eine erste Einschätzung von Honorar und optionalem Bauvolumen — basierend auf Deinen Angaben zu Größe, Leistung und Zielen. Keine Verpflichtung.</span>
-                <span class="en-t">A first estimate of fee and optional build volume — based on your inputs on size, service, and goals. No obligation.</span>
+                <span class="de-t">Eine erste Einschätzung von Honorar und optionalem Bauvolumen, basierend auf Deinen Angaben zu Größe, Leistung und Zielen. Keine Verpflichtung.</span>
+                <span class="en-t">A first estimate of fee and optional build volume, based on your inputs on size, service, and goals. No obligation.</span>
               </p>
             </li>
             <li class="bi-faq__item">
@@ -3132,8 +3142,8 @@
                 <span class="en-t">Do you also work outside Berlin?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Ja — viele Schritte lassen sich remote machen. Vor-Ort-Termine sind je nach Projekt und Entfernung möglich.</span>
-                <span class="en-t">Yes — many steps can be done remotely. On-site visits are possible depending on project and distance.</span>
+                <span class="de-t">Ja, viele Schritte lassen sich remote machen. Vor-Ort-Termine sind je nach Projekt und Entfernung möglich.</span>
+                <span class="en-t">Yes, many steps can be done remotely. On-site visits are possible depending on project and distance.</span>
               </p>
             </li>
           </ul>
@@ -3701,6 +3711,37 @@
             }
           });
         });
+
+        var serviceToggle = document.getElementById("bi-service-toggle");
+        var servicePanel = document.getElementById("bi-service-panel");
+        if (serviceToggle && servicePanel) {
+          function setServiceOpen(open) {
+            serviceToggle.setAttribute("aria-expanded", open ? "true" : "false");
+            serviceToggle.classList.toggle("is-open", open);
+            if (open) {
+              servicePanel.removeAttribute("hidden");
+            } else {
+              servicePanel.setAttribute("hidden", "");
+            }
+          }
+          serviceToggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            setServiceOpen(servicePanel.hasAttribute("hidden"));
+          });
+          servicePanel.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              setServiceOpen(false);
+            });
+          });
+          document.addEventListener("click", function (e) {
+            if (!serviceToggle.contains(e.target) && !servicePanel.contains(e.target)) {
+              setServiceOpen(false);
+            }
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") setServiceOpen(false);
+          });
+        }
       })();
     </script>
     <script defer>
@@ -3961,13 +4002,13 @@
             concreteDe: "Frei Von Ecken, 2026",
             concreteEn: "Frei Von Ecken, 2026",
             imageLabelsDe: [
-              "Frei Von Ecken - 4-Sitzer (85 x 130 cm)",
-              "Frei Von Ecken - 8-Sitzer (95 x 240 cm)",
-              "Frei Von Ecken - 8-Sitzer (95 x 240 cm)",
-              "Frei Von Ecken - 8-Sitzer (95 x 240 cm)",
-              "Frei Von Ecken - 8-Sitzer (95 x 240 cm)",
-              "Frei Von Ecken - 4-Sitzer (85 x 130 cm)",
-              "Frei Von Ecken - 4-Sitzer (85 x 130 cm)",
+              "Frei Von Ecken, 4-Sitzer (85 x 130 cm)",
+              "Frei Von Ecken, 8-Sitzer (95 x 240 cm)",
+              "Frei Von Ecken, 8-Sitzer (95 x 240 cm)",
+              "Frei Von Ecken, 8-Sitzer (95 x 240 cm)",
+              "Frei Von Ecken, 8-Sitzer (95 x 240 cm)",
+              "Frei Von Ecken, 4-Sitzer (85 x 130 cm)",
+              "Frei Von Ecken, 4-Sitzer (85 x 130 cm)",
             ],
             imageLabelsEn: [
               "Frei Von Ecken, 4-seater (85 x 130 cm)",
@@ -4190,16 +4231,16 @@
             titleEn: "Sorting & order",
             paragraphsDe: [
               "Willst du deine Ideen mit dem Status Quo zu Hause oder im Büro abgleichen? Oder konkret im Haus Ordnung schaffen?",
-              "Vollgestopfte Schränke, unaufgeräumte Zimmer, ein Keller, der schon zu lange wartet – oder Umbau-Ideen, die im Kopf kreisen, aber nie den Weg auf Papier finden. Du willst es angehen. Aber irgendwie fehlt der Anfang.",
-              "Ich zeige dir, wie du aus der Blockade rauskommst. Mit klaren Techniken, die helfen, über jeden Gegenstand zu entscheiden – oder jeden Raum neu zu denken. Ohne Druck, ohne Vorurteile.",
-              "Wir starten mit dem Ist-Zustand: Wie fühlst du dich in deiner Umgebung gerade? Was soll sich ändern – und warum eigentlich? Was hättest du davon, wenn es erledigt wäre?",
+              "Vollgestopfte Schränke, unaufgeräumte Zimmer, ein Keller, der schon zu lange wartet, oder Umbau-Ideen, die im Kopf kreisen, aber nie den Weg auf Papier finden. Du willst es angehen. Aber irgendwie fehlt der Anfang.",
+              "Ich zeige dir, wie du aus der Blockade rauskommst. Mit klaren Techniken, die helfen, über jeden Gegenstand zu entscheiden oder jeden Raum neu zu denken. Ohne Druck, ohne Vorurteile.",
+              "Wir starten mit dem Ist-Zustand: Wie fühlst du dich in deiner Umgebung gerade? Was soll sich ändern, und warum eigentlich? Was hättest du davon, wenn es erledigt wäre?",
               "Ordnung oder Veränderung: beides schafft Raum. Für Neues, für Ruhe, für das Gefühl, wieder Herr der Lage zu sein.",
             ],
             paragraphsEn: [
               "Do you want to compare your ideas with the status quo at home or in the office? Or create order in your home, concretely?",
-              "Stuffed cupboards, untidy rooms, a cellar that has waited too long – or renovation ideas circling in your head but never making it onto paper. You want to tackle it. But somehow the starting point is missing.",
-              "I show you how to get out of the block. With clear techniques that help you decide on every object – or rethink every room. Without pressure, without judgement.",
-              "We start with the current state: How do you feel in your environment right now? What should change – and why? What would you gain if it were done?",
+              "Stuffed cupboards, untidy rooms, a cellar that has waited too long, or renovation ideas circling in your head but never making it onto paper. You want to tackle it. But somehow the starting point is missing.",
+              "I show you how to get out of the block. With clear techniques that help you decide on every object or rethink every room. Without pressure, without judgement.",
+              "We start with the current state: How do you feel in your environment right now? What should change, and why? What would you gain if it were done?",
               "Order or change: both create space. For something new, for calm, for the feeling of being in control again.",
             ],
           },
@@ -4211,7 +4252,7 @@
               "Handwerker finden und diese begleiten, damit Du keine Sorgen haben musst. Wir übergeben Dir Dein Projekt zum Wohlfühlen und Leben zu dem Zeitpunkt, den Du möchtest.",
             ],
             paragraphsEn: [
-              "Your idea needs translating. How much architectural language you can handle and how much we should formulate — we discuss that in the first meeting, then produce a summary, and then you either commission the buildable design drawing with list and visuals or we accompany you through to execution.",
+              "Your idea needs translating. How much architectural language you can handle and how much we should formulate, we discuss that in the first meeting, then produce a summary, and then you either commission the buildable design drawing with list and visuals or we accompany you through to execution.",
               "We find trades and guide them so you do not have to worry. We hand over your project ready for you to feel at home and live in it when you want.",
             ],
           },
@@ -4331,22 +4372,22 @@
             src: "assets/interior/biigJ-Küche-01.png",
             altDe: "Küche mit klarer Materialität und warmem Licht",
             altEn: "Kitchen with clear materials and warm light",
-            captionDe: "Berlin Kreuzberg - Sanierung Mini-Apartement",
-            captionEn: "Berlin Kreuzberg - mini-apartment renovation",
+            captionDe: "Berlin Kreuzberg, Sanierung Mini-Apartement",
+            captionEn: "Berlin Kreuzberg, mini-apartment renovation",
           },
           {
             src: "assets/interior/rene-möbliert-01.png?v=2",
             altDe: "Möblierter Wohnraum mit durchdachter Einrichtung",
             altEn: "Furnished living space with curated interior",
-            captionDe: "Hamburg Blankenese - Sanierung einer Wohnetage",
-            captionEn: "Hamburg Blankenese - renovation of a residential floor",
+            captionDe: "Hamburg Blankenese, Sanierung einer Wohnetage",
+            captionEn: "Hamburg Blankenese, renovation of a residential floor",
           },
           {
             src: "assets/interior/blauesgemälde.png",
             altDe: "Interieur mit blauem Gemälde, Sideboard und Glasobjekten",
             altEn: "Interior with blue painting, sideboard, and glass objects",
-            captionDe: "Berlin Kreuzberg - Wohnungsarrengement",
-            captionEn: "Berlin Kreuzberg - apartment layout",
+            captionDe: "Berlin Kreuzberg, Wohnungsarrengement",
+            captionEn: "Berlin Kreuzberg, apartment layout",
           },
         ];
 
