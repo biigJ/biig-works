@@ -1,15 +1,8 @@
 # biig.works
 
-Static export of the biig Interior page from Friday Circle.
+Static export of biig Interior from [friday-circle](https://github.com/biigJ/friday-circle).
+Do not edit by hand — run `scripts/deploy-biig-works.sh` from friday-circle instead.
 
 ## Deploy
 
-Serve the repository root as static files (`index.html` at `/`).
-
-## Local preview
-
-```bash
-python3 -m http.server 8080
-```
-
-Then open http://localhost:8080
+GitHub Pages serves this repository (`CNAME`: biig.works).
