@@ -6,4 +6,4 @@ Do not edit by hand — run `scripts/deploy-biig-works.sh` from friday-circle in
 ## Deploy
 
 GitHub Pages serves this repository (`CNAME`: biig.works).
-WGA/Kunst lives at [kunst.biig.works](https://kunst.biig.works).
+WGA/Kunst: `/kunst/index.html`
