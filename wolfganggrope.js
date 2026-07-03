@@ -735,6 +735,7 @@
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "wga-tile wga-tile--work";
+    btn.id = work.id;
     btn.setAttribute("data-wga-work", work.id);
 
     const media = document.createElement("span");
@@ -1625,8 +1626,16 @@
       var section = new URLSearchParams(location.search).get("section");
       if (section) return section.trim();
     } catch (err) {}
-    var hash = hashTargetId();
-    if (hash && document.getElementById(hash)?.classList.contains("wga-section")) return hash;
+    var hash = (location.hash || "").replace(/^#/, "").trim();
+    if (hash) {
+      try {
+        hash = decodeURIComponent(hash);
+      } catch (err) {}
+      if (worksById[hash]) {
+        return workSectionById[hash] ? workSectionById[hash].id : "";
+      }
+      if (document.getElementById(hash)?.classList.contains("wga-section")) return hash;
+    }
     var workId = catalogViewWorkId();
     if (workId && workSectionById[workId]) return workSectionById[workId].id;
     return "";
@@ -1813,19 +1822,15 @@
     });
     if (tile) tile.classList.add("is-shop-highlight");
 
-    const settleImages = workId
-      ? imagesThroughWork(workId)
-      : sectionEl
-        ? imagesInSection(sectionEl)
-        : [];
+    const settleImages = workId && tile ? imagesThroughWork(workId) : sectionEl ? imagesInSection(sectionEl) : [];
 
     return whenImagesLoadedOrTimeout(settleImages, 12000).then(function () {
+      if (tile) {
+        return stabilizeShopTileScroll(tile, tile.closest(".wga-section"));
+      }
       if (sectionEl) {
         const anchor = sectionScrollTarget(sectionEl);
         scrollToElement(anchor, "auto");
-      }
-      if (tile) {
-        return stabilizeShopTileScroll(tile, sectionEl);
       }
       return true;
     }).then(function () {
