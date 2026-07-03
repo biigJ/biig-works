@@ -813,6 +813,11 @@ body.wga-page {
   width: 100%;
   height: auto;
   cursor: pointer;
+  scroll-margin-top: calc(var(--fc-nav-h, 72px) + 16px);
+}
+
+body.wga-shop-scroll-pending {
+  overflow: hidden;
 }
 
 .wga-tile.is-shop-highlight {
