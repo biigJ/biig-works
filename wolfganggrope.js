@@ -1620,6 +1620,27 @@
     return "";
   }
 
+  function catalogViewSectionId() {
+    try {
+      var section = new URLSearchParams(location.search).get("section");
+      if (section) return section.trim();
+    } catch (err) {}
+    var hash = hashTargetId();
+    if (hash && document.getElementById(hash)?.classList.contains("wga-section")) return hash;
+    var workId = catalogViewWorkId();
+    if (workId && workSectionById[workId]) return workSectionById[workId].id;
+    return "";
+  }
+
+  function resolveShopDeepLinkTarget() {
+    var workId = catalogViewWorkId();
+    var sectionId = catalogViewSectionId();
+    if (workId && workSectionById[workId]) {
+      sectionId = workSectionById[workId].id;
+    }
+    return { workId: workId, sectionId: sectionId };
+  }
+
   function isShopCatalogView() {
     try {
       var params = new URLSearchParams(location.search);
@@ -1665,9 +1686,7 @@
 
   function shopDeepLinkTargetSectionId() {
     if (!isShopCatalogView()) return "";
-    const workId = catalogViewWorkId();
-    if (!workId || !workSectionById[workId]) return "";
-    return workSectionById[workId].id;
+    return resolveShopDeepLinkTarget().sectionId;
   }
 
   function imagesThroughWork(workId) {
@@ -1691,10 +1710,10 @@
     window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
   }
 
-  function stabilizeShopTileScroll(tile, maxMs) {
+  function stabilizeShopTileScroll(tile, sectionEl, maxMs) {
     maxMs = maxMs || 12000;
     return new Promise(function (resolve) {
-      if (!tile || !catalogRoot) {
+      if (!tile) {
         resolve(false);
         return;
       }
@@ -1703,6 +1722,7 @@
       let quietTimer = null;
       let maxTimer = null;
       let ro = null;
+      const observeEl = sectionEl || tile.parentElement || catalogRoot;
 
       function finish() {
         if (ro) ro.disconnect();
@@ -1732,7 +1752,7 @@
         if (quietTimer) window.clearTimeout(quietTimer);
         quietTimer = window.setTimeout(finish, 220);
       });
-      ro.observe(catalogRoot);
+      if (observeEl) ro.observe(observeEl);
       maxTimer = window.setTimeout(finish, maxMs);
       quietTimer = window.setTimeout(finish, 320);
     });
@@ -1747,16 +1767,18 @@
     ]);
   }
 
-  var shopScrollState = { workId: "", busy: false, done: false };
+  var shopScrollState = { workId: "", sectionId: "", busy: false, done: false };
 
   function finishShopDeepLinkScroll(attempt) {
     attempt = attempt || 0;
-    const workId = catalogViewWorkId();
-    if (!isShopCatalogView() || !workId || !catalogRoot) {
+    const target = resolveShopDeepLinkTarget();
+    const workId = target.workId;
+    const sectionId = target.sectionId;
+    if (!isShopCatalogView() || !catalogRoot || (!workId && !sectionId)) {
       document.body.classList.remove("wga-shop-scroll-pending");
       return Promise.resolve(false);
     }
-    if (shopScrollState.done && shopScrollState.workId === workId) {
+    if (shopScrollState.done && shopScrollState.workId === workId && shopScrollState.sectionId === sectionId) {
       document.body.classList.remove("wga-shop-scroll-pending");
       return Promise.resolve(true);
     }
@@ -1764,10 +1786,16 @@
 
     shopScrollState.busy = true;
     shopScrollState.workId = workId;
+    shopScrollState.sectionId = sectionId;
     releaseCatalogViewLock();
 
-    const tile = catalogRoot.querySelector('[data-wga-work="' + workId + '"]');
-    if (!tile) {
+    let sectionEl = sectionId ? document.getElementById(sectionId) : null;
+    const tile = workId ? catalogRoot.querySelector('[data-wga-work="' + workId + '"]') : null;
+    if (!sectionEl && tile) {
+      const parentSection = tile.closest(".wga-section");
+      if (parentSection) sectionEl = parentSection;
+    }
+    if (!tile && !sectionEl) {
       shopScrollState.busy = false;
       if (attempt < 30) {
         return new Promise(function (resolve) {
@@ -1783,11 +1811,23 @@
     catalogRoot.querySelectorAll(".wga-tile.is-shop-highlight").forEach(function (el) {
       el.classList.remove("is-shop-highlight");
     });
-    tile.classList.add("is-shop-highlight");
+    if (tile) tile.classList.add("is-shop-highlight");
 
-    const settleImages = imagesThroughWork(workId);
+    const settleImages = workId
+      ? imagesThroughWork(workId)
+      : sectionEl
+        ? imagesInSection(sectionEl)
+        : [];
+
     return whenImagesLoadedOrTimeout(settleImages, 12000).then(function () {
-      return stabilizeShopTileScroll(tile);
+      if (sectionEl) {
+        const anchor = sectionScrollTarget(sectionEl);
+        scrollToElement(anchor, "auto");
+      }
+      if (tile) {
+        return stabilizeShopTileScroll(tile, sectionEl);
+      }
+      return true;
     }).then(function () {
       shopScrollState.busy = false;
       shopScrollState.done = true;
@@ -1832,8 +1872,8 @@
     if (isShopCatalogView()) releaseCatalogViewLock();
     if (!catalog) return;
 
-    var catalogWork = catalogViewWorkId();
-    if (isShopCatalogView() && catalogWork) {
+    var target = resolveShopDeepLinkTarget();
+    if (isShopCatalogView() && (target.workId || target.sectionId)) {
       finishShopDeepLinkScroll(attempt);
       return;
     }
@@ -1962,6 +2002,7 @@
     var workId = catalogViewWorkId();
     if (shopScrollState.done && workId && workId === shopScrollState.workId) return;
     shopScrollState.done = false;
+    shopScrollState.sectionId = "";
     scrollToHashChapter();
   });
 
