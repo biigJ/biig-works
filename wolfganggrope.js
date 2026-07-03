@@ -735,7 +735,6 @@
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "wga-tile wga-tile--work";
-    btn.id = work.id;
     btn.setAttribute("data-wga-work", work.id);
 
     const media = document.createElement("span");
@@ -780,6 +779,7 @@
     shopScrollState.busy = false;
     if (isShopCatalogView() && catalogViewWorkId()) {
       document.body.classList.add("wga-shop-scroll-pending");
+      window.scrollTo(0, 0);
     } else {
       document.body.classList.remove("wga-shop-scroll-pending");
     }
@@ -894,6 +894,22 @@
           img.addEventListener("load", done, { once: true });
           img.addEventListener("error", done, { once: true });
           window.setTimeout(done, 2200);
+        });
+      })
+    );
+  }
+
+  function whenImagesLoaded(imgs) {
+    if (!imgs.length) return Promise.resolve();
+    return Promise.all(
+      imgs.map(function (img) {
+        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise(function (resolve) {
+          function done() {
+            resolve();
+          }
+          img.addEventListener("load", done, { once: true });
+          img.addEventListener("error", done, { once: true });
         });
       })
     );
@@ -1669,20 +1685,64 @@
     return imgs;
   }
 
-  function scrollTileIntoView(tile) {
+  function scrollToShopTile(tile) {
     if (!tile) return;
-    try {
-      tile.scrollIntoView({ block: "start", behavior: "instant" });
-    } catch (err) {
-      tile.scrollIntoView(true);
-    }
+    const top = window.scrollY + tile.getBoundingClientRect().top - navHeight() - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
   }
 
-  function whenImagesReadyOrTimeout(imgs, timeoutMs) {
+  function stabilizeShopTileScroll(tile, maxMs) {
+    maxMs = maxMs || 12000;
+    return new Promise(function (resolve) {
+      if (!tile || !catalogRoot) {
+        resolve(false);
+        return;
+      }
+
+      const started = Date.now();
+      let quietTimer = null;
+      let maxTimer = null;
+      let ro = null;
+
+      function finish() {
+        if (ro) ro.disconnect();
+        if (quietTimer) window.clearTimeout(quietTimer);
+        if (maxTimer) window.clearTimeout(maxTimer);
+        scrollToShopTile(tile);
+        resolve(true);
+      }
+
+      function align() {
+        scrollToShopTile(tile);
+      }
+
+      align();
+
+      if (typeof ResizeObserver === "undefined") {
+        window.setTimeout(finish, 280);
+        return;
+      }
+
+      ro = new ResizeObserver(function () {
+        if (Date.now() - started > maxMs) {
+          finish();
+          return;
+        }
+        align();
+        if (quietTimer) window.clearTimeout(quietTimer);
+        quietTimer = window.setTimeout(finish, 220);
+      });
+      ro.observe(catalogRoot);
+      maxTimer = window.setTimeout(finish, maxMs);
+      quietTimer = window.setTimeout(finish, 320);
+    });
+  }
+
+  function whenImagesLoadedOrTimeout(imgs, timeoutMs) {
     return Promise.race([
-      whenImagesReady(imgs),
+      whenImagesLoaded(imgs),
       new Promise(function (resolve) {
-        window.setTimeout(resolve, timeoutMs || 4000);
+        window.setTimeout(resolve, timeoutMs || 12000);
       }),
     ]);
   }
@@ -1726,8 +1786,9 @@
     tile.classList.add("is-shop-highlight");
 
     const settleImages = imagesThroughWork(workId);
-    return whenImagesReadyOrTimeout(settleImages, 4500).then(function () {
-      scrollTileIntoView(tile);
+    return whenImagesLoadedOrTimeout(settleImages, 12000).then(function () {
+      return stabilizeShopTileScroll(tile);
+    }).then(function () {
       shopScrollState.busy = false;
       shopScrollState.done = true;
       document.body.classList.remove("wga-shop-scroll-pending");
