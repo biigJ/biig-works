@@ -57,8 +57,13 @@
 
       .biig-interior-page:not(.bi-nav-past-hero) .nav .bi-brand-logo,
       .biig-interior-page:not(.bi-nav-past-hero) .bi-nav__service-toggle,
-      .biig-interior-page:not(.bi-nav-past-hero) .nav__lang button {
+      .biig-interior-page:not(.bi-nav-past-hero) .nav__lang button,
+      .biig-interior-page:not(.bi-nav-past-hero) .bi-nav__sound-slot .bi-hero__sound {
         color: #ffffff;
+      }
+
+      .biig-interior-page:not(.bi-nav-past-hero) .bi-nav__sound-slot .bi-hero__sound {
+        border-color: #ffffff;
       }
 
       .biig-interior-page:not(.bi-nav-past-hero) .bi-nav__cta--calendly {
@@ -309,7 +314,34 @@
       }
 
       .bi-nav__sound-slot {
-        display: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .bi-nav__sound-slot .bi-hero__sound {
+        position: relative;
+        inset: auto;
+        top: auto;
+        right: auto;
+        flex: 0 0 auto;
+        border: 1px solid currentColor;
+        background: transparent;
+        box-shadow: none;
+        z-index: 2;
+      }
+
+      .bi-nav__sound-slot .bi-hero__sound:hover,
+      .bi-nav__sound-slot .bi-hero__sound:focus-visible {
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .biig-interior-page.bi-nav-past-hero .bi-nav__sound-slot .bi-hero__sound {
+        color: var(--text);
+        border-color: var(--text);
       }
 
       /* -- Hero -- */
@@ -580,33 +612,171 @@
         opacity: 0.5;
       }
 
-      .bi-process__grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: clamp(12px, 2vw, 18px);
+      .bi-section--rocket {
+        overflow-x: clip;
+        isolation: isolate;
       }
 
-      .bi-process__item {
-        padding: clamp(16px, 2.2vw, 22px);
-        border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
-        background: #ffffff;
+      .bi-rocket-mtv {
+        margin: 0 0 clamp(10px, 2vw, 18px);
+        font-family: Impact, "Arial Black", "Helvetica Neue", sans-serif;
+        font-size: clamp(2rem, 10.5vw, 6.75rem);
+        font-weight: 900;
+        font-style: italic;
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        text-align: center;
+        contain: paint;
+        transform: translateZ(0);
+        animation: bi-rocket-mtv-flash 0.55s steps(1) infinite;
       }
 
-      .bi-process__item h3 {
-        margin: 0 0 8px;
-        font-family: var(--font-sans);
-        font-size: clamp(0.9rem, 1.15vw, 1rem);
-        font-weight: 600;
-        line-height: 1.3;
+      .bi-rocket-pitch {
+        margin: 0 0 clamp(12px, 2.2vw, 22px);
+        text-align: center;
+        contain: paint;
       }
 
-      .bi-process__item p {
+      .bi-rocket-pitch__text {
+        margin: 0 0 clamp(6px, 1vw, 10px);
+        font-family: Impact, "Arial Black", "Helvetica Neue", sans-serif;
+        font-size: clamp(0.6rem, 3.15vw, 2.03rem);
+        font-weight: 900;
+        font-style: italic;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+
+      .bi-rocket-pitch__cta {
+        display: inline-block;
+        font-family: Impact, "Arial Black", "Helvetica Neue", sans-serif;
+        font-size: clamp(0.66rem, 3.45vw, 2.2rem);
+        font-weight: 900;
+        font-style: italic;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: #ff0090;
+        -webkit-text-stroke: 1px color-mix(in srgb, var(--text) 35%, transparent);
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+      }
+
+      .bi-rocket-pitch__cta:hover,
+      .bi-rocket-pitch__cta:focus-visible {
+        opacity: 0.78;
+      }
+
+      @keyframes bi-rocket-mtv-flash {
+        0% {
+          color: #ff0090;
+          -webkit-text-stroke: 2px #00e8ff;
+          text-shadow: 5px 4px 0 #ffe600, -4px 3px 0 #39ff14;
+        }
+        25% {
+          color: #39ff14;
+          -webkit-text-stroke: 2px #ff0090;
+          text-shadow: -5px 4px 0 #00e8ff, 4px -3px 0 #ffe600;
+        }
+        50% {
+          color: #00e8ff;
+          -webkit-text-stroke: 2px #ffe600;
+          text-shadow: 4px -4px 0 #ff0090, -3px 4px 0 #39ff14;
+        }
+        75% {
+          color: #ffe600;
+          -webkit-text-stroke: 2px #39ff14;
+          text-shadow: -4px -4px 0 #ff0090, 5px 3px 0 #00e8ff;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bi-rocket-mtv {
+          animation: none;
+          color: #ff0090;
+          -webkit-text-stroke: 1px #00e8ff;
+        }
+      }
+
+      .bi-rocket-science {
+        position: relative;
+        width: 100%;
+        max-width: none;
         margin: 0;
+      }
+
+      .bi-rocket-science__sentinel {
+        position: absolute;
+        top: clamp(120px, 22vw, 230px);
+        left: 0;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
+        visibility: hidden;
+      }
+
+      .bi-rocket-science__stage {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        min-height: clamp(240px, 44vw, 460px);
+        border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+        overflow: hidden;
+        background: #0a0a0a;
+        contain: layout paint;
+        transition:
+          width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          margin-left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          min-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.6s ease;
+      }
+
+      .bi-section--rocket.is-in-view .bi-rocket-science__stage {
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        min-height: min(82vh, 100dvh);
+        aspect-ratio: auto;
+        border-left-color: transparent;
+        border-right-color: transparent;
+      }
+
+      .bi-rocket-science__bg {
+        position: absolute;
+        inset: 0;
+        background-color: #0a0a0a;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        pointer-events: none;
+      }
+
+      .bi-rocket-science__shade {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.38);
+        pointer-events: none;
+      }
+
+      .bi-rocket-science__word {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: clamp(16px, 3vw, 28px);
         font-family: var(--font-sans);
-        font-size: clamp(0.8rem, 1vw, 0.88rem);
-        font-weight: 300;
-        line-height: 1.5;
-        color: color-mix(in srgb, var(--text) 76%, #ffffff);
+        font-weight: 700;
+        font-size: clamp(2rem, min(8vw, 10cqw), 4.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        text-align: center;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+        pointer-events: none;
       }
 
       .bi-pricing__grid {
@@ -791,16 +961,6 @@
         gap: 12px;
       }
 
-      .bi-section--process .bi-section__title {
-        max-width: none;
-      }
-
-      @media (min-width: 900px) {
-        .bi-section--process .bi-section__title {
-          white-space: nowrap;
-        }
-      }
-
       .bi-section--pricing .bi-section__title {
         max-width: none;
       }
@@ -889,8 +1049,7 @@
       }
 
       @media (max-width: 980px) {
-        .bi-compare,
-        .bi-process__grid {
+        .bi-compare {
           grid-template-columns: 1fr;
         }
 
@@ -1194,6 +1353,12 @@
         display: none;
       }
 
+      .bi-portfolio.bi-portfolio--standard:not(.bi-portfolio--hochbau-expanded) .bi-tile--hochbau-collage,
+      .bi-portfolio.bi-portfolio--standard:not(.bi-portfolio--hochbau-expanded) .bi-hochbau-tiles-row,
+      .bi-portfolio.bi-portfolio--standard:not(.bi-portfolio--hochbau-expanded) .bi-tile--hochbau-item {
+        display: none !important;
+      }
+
       .bi-portfolio.bi-portfolio--service-filter .bi-tile--project {
         display: none;
       }
@@ -1219,23 +1384,27 @@
       }
 
       @media (min-width: 901px) {
+        .bi-portfolio.bi-portfolio--standard .bi-grid,
         .bi-portfolio.bi-portfolio--service-filter .bi-grid {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
         }
 
+        .bi-portfolio.bi-portfolio--standard .bi-image-row:not(.bi-hochbau-tiles-row),
         .bi-portfolio.bi-portfolio--service-filter .bi-image-row,
         .bi-portfolio.bi-portfolio--service-filter .bi-hochbau-tiles-row,
         .bi-portfolio.bi-portfolio--service-filter.bi-portfolio--hochbau-expanded .bi-hochbau-tiles-row {
           display: contents;
         }
 
+        .bi-portfolio.bi-portfolio--standard .bi-image-row:not(.bi-hochbau-tiles-row) > .bi-image-row__scroll,
         .bi-portfolio.bi-portfolio--service-filter .bi-image-row__scroll,
         .bi-portfolio.bi-portfolio--service-filter.bi-portfolio--hochbau-expanded .bi-hochbau-tiles-row .bi-image-row__scroll {
           display: contents;
         }
 
+        .bi-portfolio.bi-portfolio--standard .bi-tile--project:not(.bi-tile--hochbau-collage):not(.bi-tile--hochbau-item),
         .bi-portfolio.bi-portfolio--service-filter .bi-tile--project.bi-tile--service-visible {
           flex: 0 0 auto;
           width: var(--bi-col);
@@ -1853,7 +2022,7 @@
 
       .bi-hochbau-collage {
         display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-template-columns: repeat(8, minmax(0, 1fr));
         width: 100%;
         height: 100%;
         gap: 2px;
@@ -2377,8 +2546,13 @@
 
         .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .nav .bi-brand-logo,
         .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .bi-nav__service-toggle,
-        .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .nav__lang button {
+        .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .nav__lang button,
+        .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .bi-nav__sound-slot .bi-hero__sound {
           color: var(--text);
+        }
+
+        .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .bi-nav__sound-slot .bi-hero__sound {
+          border-color: var(--text);
         }
 
         .biig-interior-page:not(.bi-nav-over-tiles):not(.bi-nav-past-hero) .bi-nav__cta--calendly {
@@ -2453,27 +2627,8 @@
           grid-row: 3;
           display: flex;
           justify-content: center;
-        }
-
-        .bi-nav__sound-slot {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .bi-nav__sound-slot .bi-hero__sound {
           position: relative;
-          inset: auto;
-          flex: 0 0 auto;
-          border: 1px solid currentColor;
-          background: transparent;
-          box-shadow: none;
-        }
-
-        .bi-nav__sound-slot .bi-hero__sound:hover,
-        .bi-nav__sound-slot .bi-hero__sound:focus-visible {
-          background: transparent;
-          box-shadow: none;
+          z-index: 2;
         }
 
         .bi-hero {
@@ -3319,8 +3474,8 @@
         <div class="bi-shell">
           <h2 id="bi-portfolio-title" class="bi-portfolio__title">
             <span class="bi-portfolio__title-default">
-              <span class="de-t">Projekte aus der Praxis</span>
-              <span class="en-t">Projects from practice</span>
+              <span class="de-t">So kann es laufen:</span>
+              <span class="en-t">This is how it could go:</span>
             </span>
             <span class="bi-portfolio__title-service" hidden>
               <span class="de-t"></span>
@@ -3414,6 +3569,19 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
+            <button type="button" class="bi-tile bi-tile--project" data-bi-project="bueroraeume">
+              <span class="bi-tile__media">
+                <img src="assets/interior/buero-raum-800.webp" data-fc-fallback="assets/interior/buero-raum.jpg" alt="" width="2048" height="2092" loading="lazy" decoding="async" />
+              </span>
+              <span class="bi-tile__label">
+                <span class="de-t">Bürotrakt</span>
+                <span class="en-t">Office wing</span>
+              </span>
+              <span class="bi-tile__hover">
+                <span class="bi-tile__keyword" data-bi-i18n="keyword"></span>
+                <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
+              </span>
+            </button>
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="hausA">
               <span class="bi-tile__media">
                 <img src="assets/interior/traudi-küche-800.webp" data-fc-fallback="assets/interior/traudi-küche.png" alt="" width="2193" height="1606" loading="lazy" decoding="async" />
@@ -3445,8 +3613,8 @@
                 <img src="assets/interior/loftbalkon-800.webp?v=2" data-fc-fallback="assets/interior/loftbalkon.png?v=2" alt="" width="1306" height="2430" loading="lazy" decoding="async" />
               </span>
               <span class="bi-tile__label">
-                <span class="de-t">Zimmerausstattung</span>
-                <span class="en-t">Room outfitting</span>
+                <span class="de-t">Wohnstruktur</span>
+                <span class="en-t">Apartment structure</span>
               </span>
               <span class="bi-tile__hover">
                 <span class="bi-tile__keyword" data-bi-i18n="keyword"></span>
@@ -3510,9 +3678,35 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
+            <button type="button" class="bi-tile bi-tile--project" data-bi-project="rueckzugsort">
+              <span class="bi-tile__media">
+                <img src="assets/interior/rueckzugsort-800.webp" data-fc-fallback="assets/interior/rueckzugsort.jpg" alt="" width="1760" height="2396" loading="lazy" decoding="async" />
+              </span>
+              <span class="bi-tile__label">
+                <span class="de-t">Rückzugsort</span>
+                <span class="en-t">Retreat</span>
+              </span>
+              <span class="bi-tile__hover">
+                <span class="bi-tile__keyword" data-bi-i18n="keyword"></span>
+                <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
+              </span>
+            </button>
+            <button type="button" class="bi-tile bi-tile--project" data-bi-project="sammler">
+              <span class="bi-tile__media">
+                <img src="assets/interior/Marvell-Living-daytime-800.webp" data-fc-fallback="assets/interior/Marvell-Living-daytime.jpg" alt="" width="1844" height="2304" loading="lazy" decoding="async" />
+              </span>
+              <span class="bi-tile__label">
+                <span class="de-t">Sammler</span>
+                <span class="en-t">Collector</span>
+              </span>
+              <span class="bi-tile__hover">
+                <span class="bi-tile__keyword" data-bi-i18n="keyword"></span>
+                <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
+              </span>
+            </button>
             <button type="button" class="bi-tile bi-tile--project" data-bi-project="umbauten">
               <span class="bi-tile__media">
-                <img src="assets/interior/rene-möbliert-01-800.webp" data-fc-fallback="assets/interior/rene-möbliert-01.png" alt="" width="800" height="1067" loading="lazy" decoding="async" />
+                <img src="assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/elbchaussee-VIS-wohnung-800.webp" data-fc-fallback="assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/elbchaussee-VIS-wohnung.jpg" alt="" width="800" height="1067" loading="lazy" decoding="async" />
               </span>
               <span class="bi-tile__label">
                 <span class="de-t">Etage</span>
@@ -3554,6 +3748,19 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
             </button>
+            <button type="button" class="bi-tile bi-tile--project" data-bi-project="freiVonEckenEsszimmer">
+              <span class="bi-tile__media">
+                <img src="assets/interior/FreiVonEcken-Esszimmer-mitTreppe-800.webp" data-fc-fallback="assets/interior/FreiVonEcken-Esszimmer-mitTreppe.jpg" alt="" width="1792" height="2378" loading="lazy" decoding="async" />
+              </span>
+              <span class="bi-tile__label">
+                <span class="de-t">Esszimmer mit Treppe</span>
+                <span class="en-t">Dining room with stairs</span>
+              </span>
+              <span class="bi-tile__hover">
+                <span class="bi-tile__keyword" data-bi-i18n="keyword"></span>
+                <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
+              </span>
+            </button>
             <div class="bi-tile bi-tile--project" id="bi-tile-moebel" data-bi-project="moebel" role="button" tabindex="0">
               <span class="bi-tile__media">
                 <img src="assets/interior/freivonecken130-villaecke-800.webp" data-fc-fallback="assets/interior/freivonecken130-villaecke.png" alt="" width="1646" height="1697" loading="lazy" decoding="async" />
@@ -3567,7 +3774,7 @@
                 <span class="bi-tile__concrete" data-bi-i18n="concrete"></span>
               </span>
               <div class="bi-tile__buy">
-                <a class="bi-tile__cta" href="../kaufen/tisch.html">
+                <a class="bi-tile__cta" href="kaufen/tisch.html">
                   <span class="de-t">Kaufen</span>
                   <span class="en-t">Buy</span>
                 </a>
@@ -3596,67 +3803,34 @@
         </div>
       </section>
 
-      <section class="bi-section bi-section--tight-top bi-section--process" id="bi-process" aria-labelledby="bi-process-title">
+      <section class="bi-section bi-section--tight-top bi-section--rocket" id="bi-rocket-works" aria-labelledby="bi-rocket-mtv-label">
         <div class="bi-shell">
-          <h2 class="bi-section__title" id="bi-process-title">
-            <span class="de-t" id="bi-process-title-de">Projektablauf in Kurzform</span>
-            <span class="en-t" id="bi-process-title-en">Project process in brief</span>
-          </h2>
-          <div class="bi-process__grid" id="bi-process-grid"></div>
-        </div>
-      </section>
-
-      <section class="bi-section bi-section--tight-top bi-section--pricing" id="bi-pricing" aria-labelledby="bi-pricing-title">
-        <div class="bi-shell">
-          <h2 class="bi-section__title" id="bi-pricing-title">
-            <span class="de-t">Pakete im Überblick</span>
-            <span class="en-t">Packages at a glance</span>
-          </h2>
-          <div class="bi-pricing__grid">
-            <article class="bi-pricing-card" id="bi-pricing-ordnung">
-              <h3 class="bi-pricing-card__title"><span class="de-t">Sortieren &amp; Orden</span><span class="en-t">Sorting &amp; order</span></h3>
-              <p class="bi-pricing-card__price"><span class="de-t">ab 200 €</span><span class="en-t">from €200</span></p>
-              <p class="bi-pricing-card__note"><span class="de-t">Aufräumservice &amp; Deine Visionen strukturieren</span><span class="en-t">Decluttering service &amp; structuring your vision</span></p>
-              <ul class="bi-pricing-card__list">
-                <li><span class="de-t">Vor Ort mit viel Geduld</span><span class="en-t">On site with plenty of patience</span></li>
-                <li><span class="de-t">Im Webcall mit Plan</span><span class="en-t">Via web call with a plan</span></li>
-                <li><span class="de-t">klare Entscheidungshilfen</span><span class="en-t">Clear decision support</span></li>
-                <li><span class="de-t">Urteilsfrei &amp; diskret</span><span class="en-t">Without judgement &amp; discreet</span></li>
-              </ul>
-            </article>
-            <article class="bi-pricing-card" id="bi-pricing-design">
-              <h3 class="bi-pricing-card__title"><span class="de-t">Design</span><span class="en-t">Design</span></h3>
-              <p class="bi-pricing-card__price"><span class="de-t">ab 450 €</span><span class="en-t">from €450</span></p>
-              <p class="bi-pricing-card__note"><span class="de-t">Raumkonzepte &amp; komplexe Strukturen</span><span class="en-t">Room concepts &amp; complex structures</span></p>
-              <ul class="bi-pricing-card__list">
-                <li><span class="de-t">Analyse Deiner Ziele &amp; Ressourcen</span><span class="en-t">Analysis of your goals &amp; resources</span></li>
-                <li><span class="de-t">Abstimmung von allen Schritten</span><span class="en-t">Alignment on every step</span></li>
-                <li><span class="de-t">Material, Farbe, Licht, Funktionen</span><span class="en-t">Materials, colour, light, functions</span></li>
-                <li><span class="de-t">von DIY bis edlen Tischlerarbeiten</span><span class="en-t">From DIY to fine joinery</span></li>
-              </ul>
-            </article>
-            <article class="bi-pricing-card" id="bi-pricing-handwerker">
-              <h3 class="bi-pricing-card__title"><span class="de-t">Konstruktionsplanung</span><span class="en-t">Construction planning</span></h3>
-              <p class="bi-pricing-card__price"><span class="de-t">ab 1.000 €</span><span class="en-t">from €1,000</span></p>
-              <p class="bi-pricing-card__note"><span class="de-t">Baubarer Entwurf bis Fertigstellung</span><span class="en-t">Buildable design through to completion</span></p>
-              <ul class="bi-pricing-card__list">
-                <li><span class="de-t">Konzept zu Zeichnung</span><span class="en-t">Concept to drawing</span></li>
-                <li><span class="de-t">alles visualisiert und gelistet</span><span class="en-t">Everything visualised and listed</span></li>
-                <li><span class="de-t">Zeitplanung professionell</span><span class="en-t">Professional scheduling</span></li>
-                <li><span class="de-t">Übergabetermine nach Absprache</span><span class="en-t">Handover dates by agreement</span></li>
-              </ul>
-            </article>
-            <article class="bi-pricing-card" id="bi-pricing-hochbau">
-              <h3 class="bi-pricing-card__title"><span class="de-t">Gebäudeplanung</span><span class="en-t">Building planning</span></h3>
-              <p class="bi-pricing-card__price"><span class="de-t">auf Anfrage</span><span class="en-t">on request</span></p>
-              <p class="bi-pricing-card__note"><span class="de-t">mit Partnerbüro für Bauantrag</span><span class="en-t">with partner office for planning permits</span></p>
-              <ul class="bi-pricing-card__list">
-                <li><span class="de-t">Wir sind Dipl.-Architekten</span><span class="en-t">We are graduate architects</span></li>
-                <li><span class="de-t">Partnerbüro steht zur Seite</span><span class="en-t">Partner office at your side</span></li>
-                <li><span class="de-t">ob privat oder gewerblich</span><span class="en-t">Private or commercial projects</span></li>
-                <li><span class="de-t">alles professionell abgewickelt</span><span class="en-t">Everything handled professionally</span></li>
-              </ul>
-            </article>
+          <p class="bi-rocket-mtv" id="bi-rocket-mtv-label" aria-hidden="true">BIIG ROCKET INTERIOR WORKS</p>
+          <div class="bi-rocket-pitch" id="bi-rocket-pitch">
+            <p class="bi-rocket-pitch__text">
+              <span class="de-t">Schick mir 1 Foto und 3 Sätze.<br>Ich melde mich innerhalb eines Tages mit Skizze und Projektablauf zurück!</span>
+              <span class="en-t">Send me 1 photo and 3 sentences.<br>I'll get back within a day with a sketch and project outline!</span>
+            </p>
+            <a id="whatsapp-cta" class="bi-rocket-pitch__cta" href="#" target="_blank" rel="noopener noreferrer">
+              <span class="de-t">Einfach auf WhatsApp!</span>
+              <span class="en-t">Simply on WhatsApp!</span>
+            </a>
+          </div>
+          <div class="bi-rocket-science" id="bi-rocket-science">
+            <div class="bi-rocket-science__sentinel" id="bi-rocket-science-sentinel" aria-hidden="true"></div>
+            <div class="bi-rocket-science__stage" id="bi-rocket-science-stage" aria-live="off">
+              <div
+                class="bi-rocket-science__bg"
+                id="bi-rocket-science-bg"
+                aria-hidden="true"
+                style="background-image: url('assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/75D71C16-5E6A-401C-B693-EC7EEA750FD7.jpg')"
+              ></div>
+              <span class="bi-rocket-science__shade" aria-hidden="true"></span>
+              <p class="bi-rocket-science__word" aria-hidden="true">
+                <span class="de-t" id="bi-rocket-science-word-de">Idee</span>
+                <span class="en-t" id="bi-rocket-science-word-en">Idea</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -4088,41 +4262,86 @@
       </div>
     </section>
 
+      <section class="bi-section bi-section--tight-top bi-section--pricing" id="bi-pricing" aria-labelledby="bi-pricing-title">
+        <div class="bi-shell">
+          <h2 class="bi-section__title" id="bi-pricing-title">
+            <span class="de-t">Pakete im Überblick</span>
+            <span class="en-t">Packages at a glance</span>
+          </h2>
+          <div class="bi-pricing__grid">
+            <article class="bi-pricing-card" id="bi-pricing-ordnung">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Sortieren &amp; Ordnen</span><span class="en-t">Sorting &amp; order</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">ab 200 €</span><span class="en-t">from €200</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">Aufräumservice &amp; Deine Visionen strukturieren</span><span class="en-t">Decluttering service &amp; structuring your vision</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Vor Ort mit viel Geduld</span><span class="en-t">On site with plenty of patience</span></li>
+                <li><span class="de-t">Im Webcall mit Plan</span><span class="en-t">Via web call with a plan</span></li>
+                <li><span class="de-t">klare Entscheidungshilfen</span><span class="en-t">Clear decision support</span></li>
+                <li><span class="de-t">Urteilsfrei &amp; diskret</span><span class="en-t">Without judgement &amp; discreet</span></li>
+              </ul>
+            </article>
+            <article class="bi-pricing-card" id="bi-pricing-design">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Design</span><span class="en-t">Design</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">ab 450 €</span><span class="en-t">from €450</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">Raumkonzepte &amp; komplexe Strukturen</span><span class="en-t">Room concepts &amp; complex structures</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Analyse Deiner Ziele &amp; Ressourcen</span><span class="en-t">Analysis of your goals &amp; resources</span></li>
+                <li><span class="de-t">Abstimmung von allen Schritten</span><span class="en-t">Alignment on every step</span></li>
+                <li><span class="de-t">Material, Farbe, Licht, Funktionen</span><span class="en-t">Materials, colour, light, functions</span></li>
+                <li><span class="de-t">von DIY bis edlen Tischlerarbeiten</span><span class="en-t">From DIY to fine joinery</span></li>
+              </ul>
+            </article>
+            <article class="bi-pricing-card" id="bi-pricing-handwerker">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Konstruktionsplanung</span><span class="en-t">Construction planning</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">ab 1.000 €</span><span class="en-t">from €1,000</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">Baubarer Entwurf bis Fertigstellung</span><span class="en-t">Buildable design through to completion</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Konzept zu Zeichnung</span><span class="en-t">Concept to drawing</span></li>
+                <li><span class="de-t">alles visualisiert und gelistet</span><span class="en-t">Everything visualised and listed</span></li>
+                <li><span class="de-t">Zeitplanung professionell</span><span class="en-t">Professional scheduling</span></li>
+                <li><span class="de-t">Übergabetermine nach Absprache</span><span class="en-t">Handover dates by agreement</span></li>
+              </ul>
+            </article>
+            <article class="bi-pricing-card" id="bi-pricing-hochbau">
+              <h3 class="bi-pricing-card__title"><span class="de-t">Gebäudeplanung</span><span class="en-t">Building planning</span></h3>
+              <p class="bi-pricing-card__price"><span class="de-t">auf Anfrage</span><span class="en-t">on request</span></p>
+              <p class="bi-pricing-card__note"><span class="de-t">mit Partnerbüro für Bauantrag</span><span class="en-t">with partner office for planning permits</span></p>
+              <ul class="bi-pricing-card__list">
+                <li><span class="de-t">Wir sind Dipl.-Architekten</span><span class="en-t">We are graduate architects</span></li>
+                <li><span class="de-t">Partnerbüro steht zur Seite</span><span class="en-t">Partner office at your side</span></li>
+                <li><span class="de-t">ob privat oder gewerblich</span><span class="en-t">Private or commercial projects</span></li>
+                <li><span class="de-t">alles professionell abgewickelt</span><span class="en-t">Everything handled professionally</span></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="bi-section bi-faq--static" aria-labelledby="bi-faq-title">
         <div class="bi-shell">
           <h2 class="bi-section__title" id="bi-faq-title">
-            <span class="de-t">Häufig gestellte Fragen</span>
-            <span class="en-t">Frequently asked questions</span>
+            <span class="de-t">Fragen & Antworten</span>
+            <span class="en-t">Questions &amp; answers</span>
           </h2>
           <ul class="bi-faq__list">
             <li class="bi-faq__item">
               <button type="button" class="bi-faq__q" aria-expanded="false">
-                <span class="de-t">Was kostet ein Projekt?</span>
-                <span class="en-t">What does a project cost?</span>
+                <span class="de-t">Rechnest Du mit Architektenhonorar ab?</span>
+                <span class="en-t">Do you charge according to architects' fee scales?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Das hängt von Größe und Leistung ab. Design startet ab 450 €, Sortieren ab 200 €, Handwerker-Plan ab 1.000 €. Der Kostenrechner auf dieser Seite gibt Dir eine erste Orientierung.</span>
-                <span class="en-t">It depends on size and service. Design starts from €450, sorting from €200, trades plan from €1,000. The fee calculator on this page gives you a first orientation.</span>
+                <span class="de-t">Die Kosten orientieren sich an der Honorarordnung für Architekten und Ingenieure, die heute nicht mehr verbindlich ist. Durch effiziente Arbeitsweise und klare Absprachen von Anfang an entsteht eine faire, lebensnahe Bezahlung, pragmatisch statt bürokratisch. Der Kostenrechner am Ende der Website zeigt eine transparente Struktur; im persönlichen Gespräch und bei der Beauftragung passen wir sie gemeinsam dem Projekt an. Extra habe ich verschiedene Varianten voneinander abgegrenzt. Ich helfe auch gerne bei kleineren Themen ohne Umbau, manchmal braucht es keinen großen Rundumschlag für eine gute Alltagsumgebung, und dann können die Honorare überraschend niedrig ausfallen.</span>
+                <span class="en-t">Fees are based on the official fee scale for architects and engineers, which is no longer binding today. Efficient working methods and clear agreements from the outset lead to fair, real-world pricing, pragmatic rather than bureaucratic. The fee calculator at the end of this site shows a transparent structure; in a personal conversation and when commissioning, we adapt it together to your project. I have also separated different variants clearly. I am happy to help with smaller topics that do not involve renovation, sometimes you do not need a full overhaul for a good everyday environment, and fees can then be surprisingly low.</span>
               </p>
             </li>
             <li class="bi-faq__item">
               <button type="button" class="bi-faq__q" aria-expanded="false">
-                <span class="de-t">Brauche ich einen Architekten?</span>
-                <span class="en-t">Do I need an architect?</span>
+                <span class="de-t">Bist Du Architekt?</span>
+                <span class="en-t">Are you an architect?</span>
               </button>
               <p class="bi-faq__a">
-                <span class="de-t">Nicht für jedes Interior-Projekt. Für bauantragsrelevante Hochbau-Themen arbeite ich mit einem Partnerbüro, weil Kammerzugehörigkeit dort nötig ist.</span>
-                <span class="en-t">Not for every interior project. For structural work requiring permits I work with a partner office, because chamber membership is required there.</span>
-              </p>
-            </li>
-            <li class="bi-faq__item">
-              <button type="button" class="bi-faq__q" aria-expanded="false">
-                <span class="de-t">Wie läuft das erste Gespräch?</span>
-                <span class="en-t">How does the first conversation work?</span>
-              </button>
-              <p class="bi-faq__a">
-                <span class="de-t">Du holst mich ab, wo Du stehst: konkret oder vage. Wir klären Ziele, Kapazitäten und ob wir zusammenkommen. Berlin, telefonisch oder remote.</span>
-                <span class="en-t">You meet me where you are: concrete or vague. We clarify goals, capacity, and whether we fit. Berlin, by phone, or remote.</span>
+                <span class="de-t">Ja, ich bin Diplom-Architekt, habe jahrelang im Hochbau gearbeitet und war in Hamburg in der Architektenkammer eingetragen. Für die meisten Interior-Projekte ist keine Kammerzugehörigkeit nötig. Wenn ein Bauantrag erforderlich wird, arbeite ich mit einem befreundeten Büro zusammen.</span>
+                <span class="en-t">Yes, I am a graduate architect (Diplom-Architekt), worked for many years in building construction, and was registered with the architects' chamber in Hamburg. For most interior projects, chamber membership is not required. If a building permit is needed, I work with a partner office I know well.</span>
               </p>
             </li>
             <li class="bi-faq__item">
@@ -4133,6 +4352,16 @@
               <p class="bi-faq__a">
                 <span class="de-t">Eine erste Einschätzung von Honorar und optionalem Bauvolumen, basierend auf Deinen Angaben zu Größe, Leistung und Zielen. Keine Verpflichtung.</span>
                 <span class="en-t">A first estimate of fee and optional build volume, based on your inputs on size, service, and goals. No obligation.</span>
+              </p>
+            </li>
+            <li class="bi-faq__item">
+              <button type="button" class="bi-faq__q" aria-expanded="false">
+                <span class="de-t">Warum soll ich Dir vertrauen?</span>
+                <span class="en-t">Why should I trust you?</span>
+              </button>
+              <p class="bi-faq__a">
+                <span class="de-t">Mein Werdegang hatte mehrere Stationen, in jeder habe ich Erfahrungen gesammelt, die unserer Zusammenarbeit Sicherheit geben: fachlich, aber auch in puncto Authentizität, Zugewandtheit und dem Anspruch, Dein Wohlbefinden in den Mittelpunkt zu stellen. Lass uns vor Ort oder per Web-Meeting zusammenkommen, damit wir uns kennenlernen. Meine Werkzeuge sind up to date, ich bilde mich laufend fort, und bleibe bodenständig, mit zeitlosen Werten wie Verlässlichkeit und gutem Handwerk.</span>
+                <span class="en-t">My career has taken several turns, at each stage I gained experience that gives our collaboration a solid foundation: professionally, but also in terms of authenticity, attentiveness, and a focus on your wellbeing. Let us meet on site or via web meeting so we can get to know each other. My tools are up to date and I keep learning, while staying grounded, with timeless values such as reliability and good craft.</span>
               </p>
             </li>
             <li class="bi-faq__item">
@@ -4208,7 +4437,7 @@
             <p class="bi-buy-popup__info-body" id="bi-buy-info-body"></p>
             <div class="bi-buy-popup__info-action">
               <p class="bi-buy-popup__info-spec" id="bi-buy-info-spec"></p>
-              <a class="bi-buy-popup__buy-link" id="bi-buy-link" href="kontakt/index.html">
+              <a class="bi-buy-popup__buy-link" id="bi-buy-link" href="kaufen/tisch.html">
                 <span class="de-t">Kaufen &gt;</span>
                 <span class="en-t">Buy &gt;</span>
               </a>
@@ -4335,24 +4564,24 @@
             titleDe: "Renovierung, Berlin-Kreuzberg 2024",
             titleEn: "Renovation, Berlin-Kreuzberg 2024",
             bodyDe:
-              "Ein großes Zimmer von 38 Quadratmetern in einer Altbauwohnung erhielt eine neue Struktur und Einrichtung — Stuck, Putz, Malerarbeiten und ein Kaminelement als ruhiger Mittelpunkt.",
+              "Stell Dir ein großes Zimmer von 38 Quadratmetern in Deiner Altbauwohnung vor: neue Struktur mit Stuck, Putz, Malerarbeiten und einem Kaminelement als ruhigem Mittelpunkt.",
             bodyEn:
-              "A large 38-square-metre room in a period apartment received a new structure and furnishing — plasterwork, paint, and a fireplace element as a calm focal point.",
+              "Imagine a large 38-square-metre room in your period apartment: a new structure with plasterwork, paint, and a fireplace element as a calm focal point.",
             infoDetailDe:
-              "Ein großes Zimmer von 38 Quadratmetern in einer Altbauwohnung erhielt eine neue Struktur und Einrichtung. Die Sanierung umfasste Stuck-, Putz- und Malerarbeiten, neue Sockelleisten und eine Spiegelwand. Die Ausstattung stellt vorhandene Möbel und Fundstücke zusammen. Ein Kaminelement — im selben Material wie ein Sockel zur Kunstpräsentation — setzt einen ruhigen Akzent in der Mitte des Raums.",
+              "Stell Dir ein großes Zimmer von 38 Quadratmetern in Deiner Altbauwohnung vor. Stuck-, Putz- und Malerarbeiten, neue Sockelleisten und eine Spiegelwand geben dem Raum Halt. Deine vorhandenen Möbel und Fundstücke finden hier ihren Platz. Ein Kaminelement im selben Material wie ein Sockel zur Kunstpräsentation setzt einen ruhigen Akzent in der Mitte Deines Raums.",
             infoDetailEn:
-              "A large 38-square-metre room in a period apartment received a new structure and furnishing. The renovation included plasterwork, paint, new skirting boards, and a mirrored wall. The fit-out combines existing furniture and found pieces. A fireplace element — in the same material as a plinth for presenting art — sets a calm accent at the centre of the room.",
+              "Imagine a large 38-square-metre room in your period apartment. Plasterwork, paint, new skirting boards, and a mirrored wall give the space structure. Your existing furniture and found pieces find their place here. A fireplace element in the same material as a plinth for presenting art sets a calm accent at the centre of your room.",
             keywordDe: "Renovierung",
             keywordEn: "Renovation",
             concreteDe: "Berlin-Kreuzberg, 2024",
             concreteEn: "Berlin-Kreuzberg, 2024",
             imageLabelsDe: [
               "Renovierung, Berlin-Kreuzberg 2024",
-              "WG-Zimmer, Berlin 2016",
+              "WG-Zimmer, Berlin 2026",
             ],
             imageLabelsEn: [
               "Renovation, Berlin-Kreuzberg 2024",
-              "Shared room, Berlin 2016",
+              "Shared room, Berlin 2026",
             ],
             images: [
               "assets/interior/altbau_mitfakekamin-01.png",
@@ -4365,13 +4594,13 @@
             titleDe: "Renovierung, Berlin-Kreuzberg 2024",
             titleEn: "Renovation, Berlin-Kreuzberg 2024",
             bodyDe:
-              "Ein großes Zimmer von 38 Quadratmetern in einer Altbauwohnung erhielt eine neue Struktur und Einrichtung — Stuck, Putz, Malerarbeiten und ein Kaminelement als ruhiger Mittelpunkt.",
+              "Stell Dir vor, so könnte Dein großes Altbauzimmer wirken: neue Struktur mit Stuck, Putz, Malerarbeiten und einem Kaminelement als ruhigem Mittelpunkt.",
             bodyEn:
-              "A large 38-square-metre room in a period apartment received a new structure and furnishing — plasterwork, paint, and a fireplace element as a calm focal point.",
+              "Picture how your large period room could look: a new structure with plasterwork, paint, and a fireplace element as a calm focal point.",
             infoDetailDe:
-              "Ein großes Zimmer von 38 Quadratmetern in einer Altbauwohnung erhielt eine neue Struktur und Einrichtung. Die Sanierung umfasste Stuck-, Putz- und Malerarbeiten, neue Sockelleisten und eine Spiegelwand. Die Ausstattung stellt vorhandene Möbel und Fundstücke zusammen. Ein Kaminelement — im selben Material wie ein Sockel zur Kunstpräsentation — setzt einen ruhigen Akzent in der Mitte des Raums.",
+              "Stell Dir ein großes Zimmer von 38 Quadratmetern in Deiner Altbauwohnung vor. Stuck-, Putz- und Malerarbeiten, neue Sockelleisten und eine Spiegelwand zeigen, wie Struktur und Einrichtung zusammenwirken könnten. Deine Möbel und Fundstücke ließen sich so zusammenstellen. Ein Kaminelement im selben Material wie ein Sockel zur Kunstpräsentation könnte einen ruhigen Akzent in der Mitte setzen.",
             infoDetailEn:
-              "A large 38-square-metre room in a period apartment received a new structure and furnishing. The renovation included plasterwork, paint, new skirting boards, and a mirrored wall. The fit-out combines existing furniture and found pieces. A fireplace element — in the same material as a plinth for presenting art — sets a calm accent at the centre of the room.",
+              "Imagine a large 38-square-metre room in your period apartment. Plasterwork, paint, new skirting boards, and a mirrored wall show how structure and furnishing could work together. Your furniture and found pieces could be arranged this way. A fireplace element in the same material as a plinth for presenting art could set a calm accent at the centre.",
             keywordDe: "Renovierung",
             keywordEn: "Renovation",
             concreteDe: "Berlin-Kreuzberg, 2024",
@@ -4383,22 +4612,22 @@
           altbau2: {
             tileLabelDe: "WG-Zimmer",
             tileLabelEn: "Shared room",
-            titleDe: "WG-Zimmer, Berlin 2016",
-            titleEn: "Shared room, Berlin 2016",
+            titleDe: "WG-Zimmer, Berlin 2026",
+            titleEn: "Shared room, Berlin 2026",
             bodyDe:
-              "Arbeits- und Rückzugsbereich in einer Berliner Altbau-WG — hohe Decken, warme Materialien und gezieltes Licht.",
+              "Stell Dir ein bewusst maskulin gestaltetes WG-Zimmer als Lounge-Rückzug vor: dunkles Bücherregal, schwarze Spiegelwand und ein leicht erhöhter Schlafbereich.",
             bodyEn:
-              "Work and retreat space in a Berlin period flat-share — tall ceilings, warm materials, and focused light.",
+              "Imagine a deliberately masculine shared room as your lounge retreat: a dark bookshelf, black mirrored wall, and a slightly raised sleeping area.",
             infoDetailDe:
-              "In einem Zimmer einer Berliner Altbau-WG entstand ein Arbeits- und Rückzugsbereich für einen IT-Spezialisten. Hohe Decken, warme Materialien und gezieltes Licht prägen den Raum — ohne den Charakter des Bestands zu verdecken.",
+              "Stell Dir ein Zimmer in Deiner Altbau-WG als Lounge-Rückzug vor – kein Arbeitszimmer, sondern bewusst ein Ort zum Ankommen. Ein erwachsener, selbstsicherer Raum mit Kunst, einem dunklen Bücherregal mit Hinterlüftung zur Außenwand, einer schwarzen Spiegelwand mit integriertem Schrank und einem leicht erhöhten Schlafbereich, der vom Sofa aus als Sockel mit Tagesdecke sichtbar wird.",
             infoDetailEn:
-              "A work and retreat space for an IT specialist was created in a room of a Berlin period flat-share. Tall ceilings, warm materials, and focused light define the room — without obscuring the character of the existing fabric.",
-            keywordDe: "Einrichtung",
-            keywordEn: "Furnishing",
-            concreteDe: "Berlin, 2016",
-            concreteEn: "Berlin, 2016",
-            imageLabelsDe: ["WG-Zimmer, Berlin 2016"],
-            imageLabelsEn: ["Shared room, Berlin 2016"],
+              "Imagine a room in your period flat-share as a lounge retreat – not a home office, but deliberately a place to arrive. A mature, self-assured room with art, a dark bookshelf ventilated to the exterior wall, a black mirrored wall with integrated cabinet, and a slightly raised sleeping area visible from the sofa as a plinth with a day blanket.",
+            keywordDe: "Lounge",
+            keywordEn: "Lounge",
+            concreteDe: "Berlin, 2026",
+            concreteEn: "Berlin, 2026",
+            imageLabelsDe: ["WG-Zimmer, Berlin 2026"],
+            imageLabelsEn: ["Shared room, Berlin 2026"],
             images: ["assets/interior/altbau-02.png"],
           },
           homeoffice1: {
@@ -4407,13 +4636,13 @@
             titleDe: "Homeoffice-Einrichtung, Berlin 2021",
             titleEn: "Home office fit-out, Berlin 2021",
             bodyDe:
-              "Wandregal mit integriertem Schreibtisch, Schienenleuchten und Kunst — Arbeit und Sammlung in einem Raum.",
+              "Stell Dir Dein kleines Zimmer mit Wandregal, integriertem Schreibtisch, Schienenleuchten und Kunst vor – Arbeit und Sammlung in einem Raum.",
             bodyEn:
-              "Wall unit with integrated desk, track lighting, and art — work and collection in one room.",
+              "Imagine your small room with a wall unit, integrated desk, track lighting, and art – work and collection in one space.",
             infoDetailDe:
-              "Konzept für ein Wandregal mit integriertem Schreibtisch — als Tischlerarbeit umgesetzt — und für Deckenleuchten auf Schienen mit ausrichtbaren Strahlern. Das Regal wurde gezielt für die Präsentation von Kunst inszeniert; Arbeit und Sammlung teilen denselben Raum.",
+              "Stell Dir Dein kleines Zimmer neu vor: statt schiefem Schrank und unbequemem Computertisch ein Wandregal mit integriertem Schreibtisch als Tischlerarbeit, dazu Deckenleuchten auf Schienen mit ausrichtbaren Strahlern. Das Regal inszeniert Deine Kunst; Arbeit und Sammlung teilen denselben Raum.",
             infoDetailEn:
-              "Concept for a wall unit with integrated desk — executed as joinery — and ceiling track lights with adjustable spots. The shelf was staged deliberately for presenting art; work and collection share the same room.",
+              "Imagine your small room anew: instead of a crooked wardrobe and uncomfortable computer desk, a wall unit with integrated desk as joinery, plus ceiling track lights with adjustable spots. The shelf stages your art; work and collection share the same room.",
             keywordDe: "Homeoffice",
             keywordEn: "Home office",
             concreteDe: "Berlin, 2021",
@@ -4428,13 +4657,13 @@
             titleDe: "Büroraum, Berlin 2026",
             titleEn: "Office space, Berlin 2026",
             bodyDe:
-              "Arbeitsraum als Teil eines Gesamtkonzepts — Wohnen und Arbeiten in einer durchgängigen Material- und Farblogik.",
+              "Stell Dir ein Büro vor, das die Sprache Deines Appartements fortsetzt: spiegelnde Schrankflächen, Sisal unter den Füßen, Lehmputz an der Wand – Platz für zwei, mit Raum für mehr.",
             bodyEn:
-              "Workspace as part of an overall concept — living and working in a consistent material and colour logic.",
+              "Imagine an office that continues the language of your apartment: mirroring cabinet surfaces, sisal underfoot, clay plaster on the wall – space for two, with room for more.",
             infoDetailDe:
-              "Gesamtkonzept für ein Apartment mit integrierter Bürofläche. Dieser Arbeitsraum ist ein Teil des Ganzen — Tisch, Regale und Licht folgen einer durchgängigen Material- und Farblogik, die Wohnen und Arbeiten verbindet.",
+              "Stell Dir Dein Büro vor, nicht für sich allein, sondern als Fortsetzung Deines Appartements: Schrankflächen, die Deinen Wohnräumen spiegeln, verbunden mit warmen Materialien. Sisalteppich dämpft den Schritt, Lehmputz gibt der Wand Tiefe. Geplant für zwei feste Arbeitsplätze, mit Raum für temporäre Sitzgelegenheiten, wenn Besuch kommt oder gemeinsam gearbeitet wird.",
             infoDetailEn:
-              "Overall concept for an apartment with integrated office space. This workspace is one part of the whole — desk, shelving, and light follow a consistent material and colour logic that connects living and working.",
+              "Imagine your office not standing apart but continuing your apartment: cabinet surfaces that mirror your living rooms, paired with warm materials. Sisal carpet softens each step, clay plaster gives the wall depth. Planned for two fixed workstations, with room for temporary seating when guests arrive or you work together.",
             keywordDe: "Büroraum",
             keywordEn: "Office space",
             concreteDe: "Berlin, 2026",
@@ -4443,19 +4672,55 @@
             imageLabelsEn: ["Office space, Berlin 2026"],
             images: ["assets/interior/office-02.png"],
           },
+          bueroraeume: {
+            tileLabelDe: "Bürotrakt",
+            tileLabelEn: "Office wing",
+            titleDe: "Restrukturierung eines Familienfirmensitzes 2026",
+            titleEn: "Restructuring of a family company headquarters 2026",
+            bodyDe:
+              "Stell Dir Deinen Familienfirmensitz auf dem Land vor: neu geordnete Arbeitszonen, Aufbewahrung und Räume mit Blick auf den Garten – der Bürotrakt direkt an der Halle.",
+            bodyEn:
+              "Imagine your family company headquarters in the countryside: reorganised work zones, storage, and rooms with views of the garden – the office wing directly beside the hall.",
+            infoDetailDe:
+              "Stell Dir Dein produzierendes Gewerbe auf dem Land vor. Du strukturierst die Arbeitsabläufe neu, daraus entstehen Zonen, Aufbewahrung und neue Räume mit Blick auf den Garten. Die Büroräume liegen direkt an Deiner Produktionshalle, der gesamte Bürotrakt empfängt internationale Gäste, der Essraum dient auch Deinem Team in der Produktion.",
+            infoDetailEn:
+              "Imagine your manufacturing business in the countryside. You reorganise how work flows; from that come zones, storage, and new rooms with views onto the garden. The office areas sit directly beside your production hall, the entire office wing welcomes international guests, and the dining room also serves your team in production.",
+            keywordDe: "Bürotrakt",
+            keywordEn: "Office wing",
+            concreteDe: "NRW, 2026",
+            concreteEn: "NRW, 2026",
+            imageLabelsDe: [
+              "Restrukturierung Familienfirmensitz 2026, Arbeitsraum",
+              "Restrukturierung Familienfirmensitz 2026, vor dem Besprechungsraum",
+              "Restrukturierung Familienfirmensitz 2026, Flur",
+              "Restrukturierung Familienfirmensitz 2026, Essraum",
+            ],
+            imageLabelsEn: [
+              "Family company headquarters restructuring 2026, workspace",
+              "Family company headquarters restructuring 2026, before meeting room",
+              "Family company headquarters restructuring 2026, corridor",
+              "Family company headquarters restructuring 2026, dining room",
+            ],
+            images: [
+              "assets/interior/buero-raum.jpg",
+              "assets/interior/buero-vorm_besprecher.jpg",
+              "assets/interior/buero-flur.jpg",
+              "assets/interior/buero-essraum.jpg",
+            ],
+          },
           hausA: {
             tileLabelDe: "Küche",
             tileLabelEn: "Kitchen",
             titleDe: "Sanierung, Augsburg 2013",
             titleEn: "Renovation, Augsburg 2013",
             bodyDe:
-              "Sanierung eines Einfamilienhauses mit neu geplanter Küche — helle Flächen, Stauraum und ein Arbeitsbereich als Mittelpunkt.",
+              "Stell Dir Dein entkerntes Einfamilienhaus vor, in dem die Küche wieder die räumliche Mitte für Alltag und Besuche wird.",
             bodyEn:
-              "Renovation of a single-family house with a newly planned kitchen — bright surfaces, storage, and a workspace at the centre.",
+              "Imagine your completely gutted single-family house where the kitchen becomes the spatial centre for daily life and visits again.",
             infoDetailDe:
-              "Sanierung eines Einfamilienhauses in Augsburg mit neu geplanter Küche. Bestehende Strukturen wurden gelesen und mit zeitgemäßer Nutzung verbunden — helle Flächen, durchdachte Stauraumzonen und ein Arbeitsbereich, der zum Mittelpunkt des Hauses wird.",
+              "Stell Dir vor, Du ziehst in ein neues Haus im Wohngebiet und entkernst es ganz nach Deinen Wünschen. Die Küche wird wieder die räumliche Mitte für Deinen Alltag und Besuche – der Ort, an dem sich Dein Familienleben neu ordnet.",
             infoDetailEn:
-              "Renovation of a single-family house in Augsburg with a newly planned kitchen. Existing structures were read and connected with contemporary use — bright surfaces, considered storage zones, and a workspace that becomes the heart of the house.",
+              "Imagine moving into a new house in a residential area and gutting it completely to your wishes. The kitchen becomes the spatial centre for your everyday life and visits again – the place where your family life finds a new order.",
             keywordDe: "Sanierung",
             keywordEn: "Renovation",
             concreteDe: "Augsburg, 2013",
@@ -4479,13 +4744,13 @@
             titleDe: "Entwurf, Hamburg 2012",
             titleEn: "Design, Hamburg 2012",
             bodyDe:
-              "Konzept für eine Doppelhaushälfte — klare Kubatur, zurückhaltende Fassade und effiziente Grundrisse.",
+              "Stell Dir ein klassisches Bauträger-Doppelhaus am Stadtrand vor: Sockel ebenerdig zum Garten, Zugang von der Straße über landschaftsgärtnerische Stufen auf 1,20 m.",
             bodyEn:
-              "Concept for a semi-detached house — clear volume, restrained facade, and efficient floor plans.",
+              "Imagine a classic developer semi-detached house on the outskirts: plinth level with the garden, street access via landscaped steps at 1.20 m.",
             infoDetailDe:
-              "Konzept für eine Doppelhaushälfte in Hamburg: klare Kubatur, zurückhaltende Fassade und Grundrisse, die Tageslicht und effiziente Raumnutzung verbinden. Der Entwurf liest den städtischen Kontext und setzt solide Bauweise mit architektonischer Präzision um.",
+              "Stell Dir ein klassisches Bauträger-Doppelhaus am Stadtrand vor. Es sitzt auf einem Sockel, der zu Deinem Garten ebenerdig rausläuft und von der Straße über eine landschaftsgärtnerische Gestaltung auf 1,20 m Höhe erreichbar ist.",
             infoDetailEn:
-              "Concept for a semi-detached house in Hamburg: clear volume, restrained facade, and floor plans that combine daylight and efficient use of space. The design reads the urban context and delivers solid construction with architectural precision.",
+              "Imagine a classic developer semi-detached house on the outskirts. It sits on a plinth that runs level with your garden and is reached from the street via landscape design at a height of 1.20 m.",
             keywordDe: "Entwurf",
             keywordEn: "Design",
             concreteDe: "Hamburg, 2012",
@@ -4509,13 +4774,13 @@
             titleDe: "Küchenplanung, Berlin",
             titleEn: "Kitchen planning, Berlin",
             bodyDe:
-              "Schmale Küchenzeile für engen Raum — Arbeitsflächen, Stauraum und Licht auf den Alltag abgestimmt.",
+              "Stell Dir Deine typische schmale Küche mit Tür zum Nebenzimmer vor – die Kochzeile inszeniert als Bar mit warmen Farben und verspielten Details.",
             bodyEn:
-              "Narrow kitchen run for a tight space — work surfaces, storage, and light aligned with daily use.",
+              "Imagine your typical narrow kitchen with a door to the adjoining room – the kitchen run staged as a bar with warm colours and playful details.",
             infoDetailDe:
-              "Eine schmale Küchenzeile wurde für engen Raum und tägliche Nutzung geplant. Arbeitsflächen, Stauraum und Licht sind auf den Alltag abgestimmt — kompakt, ohne Kompromisse bei der Funktion.",
+              "Stell Dir Deine schmale Küche vor, am Ende mit einer Tür zu einem gefangenen Zimmer. Die Kochzeile wird als Bar inszeniert, mit warmen Farben und bewusst verspielten Gestaltungselementen – so könnte Deine optimale Variante aussehen.",
             infoDetailEn:
-              "A narrow kitchen run was planned for a tight space and daily use. Work surfaces, storage, and light are aligned with everyday life — compact, without compromising function.",
+              "Imagine your narrow kitchen with a door at the end leading to an enclosed room. The kitchen run is staged as a bar with warm colours and deliberately playful design elements – this is how your optimal variant could look.",
             keywordDe: "Küche",
             keywordEn: "Kitchen",
             concreteDe: "Berlin",
@@ -4530,13 +4795,13 @@
             titleDe: "Kochinsel, Berlin 2026",
             titleEn: "Kitchen island, Berlin 2026",
             bodyDe:
-              "Kochinsel als zentraler Arbeitspunkt — strukturiert den offenen Wohnraum und trägt zur räumlichen Einheit bei.",
+              "Stell Dir eine Kochinsel in der Mitte Deiner Küche vor: zentraler Koch- und Esspunkt, Kunst an der Wand, warmes Holz im Kontrast zu Rasterdecke und weißen Flächen.",
             bodyEn:
-              "Kitchen island as a central work point — structures the open living space and contributes to spatial unity.",
+              "Imagine a kitchen island at the centre of your kitchen: a hub for cooking and dining, art on the wall, warm wood contrasting with grid ceilings and white surfaces.",
             infoDetailDe:
-              "Kochinsel als zentraler Arbeitspunkt im offenen Wohnraum. Sie strukturiert den Grundriss, bietet Stellfläche zum Kochen und Essen und trägt mit ihrer Materialwahl zur räumlichen Einheit bei.",
+              "Stell Dir eine Kochinsel in der Mitte Deiner Küche vor. Sie strukturiert den Raum, trennt und verbindet Koch- und Wohnbereich und schafft einen offenen Punkt zum Kochen, Servieren und Beisammensein. An Deiner Wand hängt Kunst, alles mit Deckenstrahlern inszeniert. Warmes Holz steht im Gegensatz zu Rasterdecke, Spiegelflächen und weißen Wänden.",
             infoDetailEn:
-              "Kitchen island as a central work point in the open living space. It structures the layout, provides surface for cooking and dining, and contributes to spatial unity through its material choice.",
+              "Imagine a kitchen island at the centre of your kitchen. It structures the space, separating and connecting kitchen and living areas while creating an open hub for cooking, serving, and gathering. Art hangs on your wall, everything staged with ceiling spots. Warm wood contrasts with grid ceilings, mirror surfaces, and white walls.",
             keywordDe: "Küche",
             keywordEn: "Kitchen",
             concreteDe: "Berlin, 2026",
@@ -4551,13 +4816,13 @@
             titleDe: "Vinothek, Geisenheim 2023",
             titleEn: "Wine bar, Geisenheim 2023",
             bodyDe:
-              "Interieur für eine Vinothek am Weingut — Material, Licht und Atmosphäre für einen Ort zum Verweilen.",
+              "Stell Dir Deine Vinothek in einer alten Kelterhalle vor: starker räumlicher Auftritt zum Empfang von Gästen – Kunst, Wein und Sekt.",
             bodyEn:
-              "Interior for a winery wine bar — materials, light, and atmosphere for a place to linger.",
+              "Imagine your wine bar in an old press hall: a strong spatial presence for receiving guests – art, wine, and sparkling wine.",
             infoDetailDe:
-              "Interieur für eine Vinothek am Weingut: Material, Licht und Atmosphäre für einen Ort zum Verweilen. Gedecke, Blumen und Abendlicht inszenieren die Produkte — ohne die Authentizität des Ortes zu überlagern.",
+              "Stell Dir Deinen neuen Standort am Weingut vor: in der alten Kelterhalle entsteht Dein authentischer Auftritt zum Empfang von Besuchern und Geschäftspartnern – Kunst meets Wein & Sekt. Rustikale Tische mit Gastrostühlen, eine Wand mit Displays, Fassade und Terrasse neu gedacht.",
             infoDetailEn:
-              "Interior for a winery wine bar: materials, light, and atmosphere for a place to linger. Table settings, flowers, and evening light stage the products — without overlaying the authenticity of the place.",
+              "Imagine your new location at the winery: in the old press hall, your authentic presence for receiving visitors and business partners takes shape – art meets wine and sparkling wine. Rustic tables with hospitality chairs, a wall with displays, facade and terrace reimagined.",
             keywordDe: "Gastronomie",
             keywordEn: "Hospitality",
             concreteDe: "Geisenheim, 2023",
@@ -4587,13 +4852,13 @@
             titleDe: "Alpenkantine, Hamburg 2009",
             titleEn: "Alpenkantine, Hamburg 2009",
             bodyDe:
-              "Gastraum mit Alpenbezug — warme Materialien und Lichtstimmungen, die zum Verweilen einladen.",
+              "Stell Dir Deine Alpenkantine vor: die Marke wird im Raum lesbar – rustikale Tische, Gastrostühle und Dein Lokalkonzept in Hamburg.",
             bodyEn:
-              "Dining room with Alpine references — warm materials and lighting moods that invite you to stay.",
+              "Imagine your Alpenkantine: the brand becomes readable in the room – rustic tables, hospitality chairs, and your local concept in Hamburg.",
             infoDetailDe:
-              "Gestaltung des Restaurants Alpenkantine in Hamburg: Gastraum mit Alpenbezug, warme Materialien und Lichtstimmungen, die zum Verweilen einladen — Gastronomie als erlebter Raum.",
+              "Stell Dir vor, Du suchst Gastro-Flächen für Deine Alpenkantine und denkst Deine Marke im Raum neu. Rustikale Tische, Gastrostühle, Sichtbeton und Deine Knödel-Varianten finden hier ihren Platz – ein Raum, der Dein Konzept trägt.",
             infoDetailEn:
-              "Design of Restaurant Alpenkantine in Hamburg: dining room with Alpine references, warm materials, and lighting moods that invite you to stay — hospitality as an experienced space.",
+              "Imagine searching for hospitality space for your Alpenkantine and rethinking your brand in spatial terms. Rustic tables, hospitality chairs, exposed concrete, and your dumpling variations find their place here – a room that carries your concept.",
             keywordDe: "Gastronomie",
             keywordEn: "Hospitality",
             concreteDe: "Hamburg, 2009",
@@ -4617,13 +4882,13 @@
             titleDe: "Sanierung & Entwurf, Augsburg & Hamburg",
             titleEn: "Renovation & design, Augsburg & Hamburg",
             bodyDe:
-              "Zwei Häuser, zwei Orte — Bestand lesen und mit zeitgemäßer Nutzung verbinden.",
+              "Stell Dir zwei Deiner Häuser an unterschiedlichen Orten vor: Bestand lesen und mit zeitgemäßer Nutzung verbinden.",
             bodyEn:
-              "Two houses, two locations — reading the existing fabric and connecting it with contemporary use.",
+              "Imagine two of your houses in different locations: reading the existing fabric and connecting it with contemporary use.",
             infoDetailDe:
-              "Umbauten in Augsburg und Hamburg: Sanierung eines Einfamilienhauses mit neuer Küche und Konzept für eine Doppelhaushälfte mit klarer Kubatur. Unterschiedliche Orte, gemeinsame Idee — Bestand lesen und neu nutzen.",
+              "Stell Dir vor, Du renovierst Dein Einfamilienhaus mit neuer Küche und entwickelst parallel ein Konzept für eine Doppelhaushälfte mit klarer Kubatur – unterschiedliche Orte, eine Idee: Bestand lesen und neu nutzen.",
             infoDetailEn:
-              "Renovations in Augsburg and Hamburg: renovation of a single-family house with a new kitchen and concept for a semi-detached house with clear volume. Different locations, one idea — read the existing fabric and use it anew.",
+              "Imagine renovating your single-family house with a new kitchen while developing a concept for a semi-detached house with clear volume in parallel – different locations, one idea: read the existing fabric and use it anew.",
             keywordDe: "Umbauten",
             keywordEn: "Renovations",
             concreteDe: "Augsburg & Hamburg",
@@ -4653,13 +4918,13 @@
             titleDe: "Homeoffice-Einrichtung, Berlin 2021",
             titleEn: "Home office fit-out, Berlin 2021",
             bodyDe:
-              "Wandregal mit Schreibtisch und Licht — zwei Arbeitskonzepte für Berlin.",
+              "Stell Dir ein Zimmer mit Wandregal, Schreibtisch und Licht vor – und dazu einen Büroraum, der zum Gesamtkonzept Deines Apartments passt.",
             bodyEn:
-              "Wall unit with desk and light — two workspace concepts for Berlin.",
+              "Imagine a room with a wall unit, desk, and lighting – plus an office space that fits the overall concept of your apartment.",
             infoDetailDe:
-              "Konzept für ein Wandregal mit integriertem Schreibtisch und Schienenleuchten in Berlin 2021; dazu ein Büroraum als Teil eines Gesamtkonzepts für ein Apartment mit Bürofläche in 2026.",
+              "Stell Dir Dein Homeoffice mit Wandregal, integriertem Schreibtisch und Schienenleuchten vor – und dazu einen Büroraum als Teil Deines Gesamtkonzepts für ein Apartment mit integrierter Arbeitsfläche.",
             infoDetailEn:
-              "Concept for a wall unit with integrated desk and track lighting in Berlin 2021; plus an office space as part of an overall concept for an apartment with integrated workspace in 2026.",
+              "Imagine your home office with a wall unit, integrated desk, and track lighting – plus an office space as part of your overall concept for an apartment with integrated workspace.",
             keywordDe: "Homeoffice",
             keywordEn: "Home office",
             concreteDe: "Berlin, 2021 & 2026",
@@ -4678,32 +4943,32 @@
             ],
           },
           loft: {
-            tileLabelDe: "Zimmerausstattung",
-            tileLabelEn: "Room outfitting",
-            titleDe: "Zimmerausstattung, Berlin-Kreuzberg 2026",
-            titleEn: "Room outfitting, Berlin-Kreuzberg 2026",
+            tileLabelDe: "Wohnstruktur",
+            tileLabelEn: "Apartment structure",
+            titleDe: "Strukturierung einer Wohnung, Berlin-Steglitz 2026",
+            titleEn: "Structuring an apartment, Berlin-Steglitz 2026",
             bodyDe:
-              "Wandverkleidung, Deckenstrahler und Teppich — ein zurückhaltender Eingriff, der den Charakter der Wohnung betont.",
+              "Stell Dir Deine Wohnung mit rund 160 Quadratmetern neu gelesen vor: Durchbrüche an der Fassade, Teppichinseln und Licht, das einzelne Flächen hervorhebt.",
             bodyEn:
-              "Wall panelling, ceiling spots, and carpet — a restrained intervention that emphasises the character of the apartment.",
+              "Imagine your apartment of roughly 160 square metres read anew: openings along the facade, islands of carpet, and light that lifts individual surfaces.",
             infoDetailDe:
-              "Aufrichtung einer Wandverkleidung, dazu Deckenstrahler für gezieltes Licht und ein neu verlegter Teppich, der den Raum strukturiert und den Klang mildert. Ein zurückhaltender Eingriff, der den Charakter der Wohnung betont.",
+              "Stell Dir Deine Wohnung mit rund 160 Quadratmetern bestehender Substanz neu vor. Entlang der Fassade öffnen Durchbrüche den Grundriss; was getrennt war, fließt zusammen. Große Teppiche legen sich wie Inseln auf den Estrich. Schaltet sich das Licht ein, setzen Strahler gezielte Highlights. Am Eingang und an der Ankleide gleiten Schiebtüren Bereiche auf und zu.",
             infoDetailEn:
-              "Installation of wall panelling, ceiling spots for focused light, and a newly laid carpet that structures the room and softens acoustics. A restrained intervention that emphasises the character of the apartment.",
-            keywordDe: "Ausstattung",
-            keywordEn: "Fit-out",
-            concreteDe: "Berlin-Kreuzberg, 2026",
-            concreteEn: "Berlin-Kreuzberg, 2026",
+              "Imagine your apartment of roughly 160 square metres of existing fabric anew. Openings along the facade loosen the plan; what had been separate flows together. Large rugs settle on the floor like islands. When the light comes on, spotlights set focused highlights. At the entrance and wardrobe, sliding doors glide areas open and closed.",
+            keywordDe: "Strukturierung",
+            keywordEn: "Structuring",
+            concreteDe: "Berlin-Steglitz, 2026",
+            concreteEn: "Berlin-Steglitz, 2026",
             imageLabelsDe: [
-              "Zimmerausstattung, Berlin-Kreuzberg 2026",
-              "Zimmerausstattung, Berlin-Kreuzberg 2026",
-              "Zimmerausstattung, Berlin-Kreuzberg 2026",
+              "Strukturierung einer Wohnung, Berlin-Steglitz 2026",
+              "Strukturierung einer Wohnung, Berlin-Steglitz 2026",
+              "Strukturierung einer Wohnung, Berlin-Steglitz 2026",
               "Wohnkonzept, Berlin 2026",
             ],
             imageLabelsEn: [
-              "Room outfitting, Berlin-Kreuzberg 2026",
-              "Room outfitting, Berlin-Kreuzberg 2026",
-              "Room outfitting, Berlin-Kreuzberg 2026",
+              "Structuring an apartment, Berlin-Steglitz 2026",
+              "Structuring an apartment, Berlin-Steglitz 2026",
+              "Structuring an apartment, Berlin-Steglitz 2026",
               "Living concept, Berlin 2026",
             ],
             images: [
@@ -4719,13 +4984,13 @@
             titleDe: "Wohnkonzept, Berlin 2026",
             titleEn: "Living concept, Berlin 2026",
             bodyDe:
-              "Loft mit Messingakzenten, begehbarem Schrank und klarer Ordnung — ein ruhiger Rahmen für den Alltag.",
+              "Stell Dir Dein Appartement mit neuer Esstischecke vor: Statement-Elemente, strenge Raumgestaltung und Ordnung hinter Schrankelementen mit bronzefarbenen Spiegeltüren.",
             bodyEn:
-              "Loft with brass accents, walk-in wardrobe, and clear order — a calm frame for everyday life.",
+              "Imagine your apartment with a new dining nook: statement pieces, strict spatial design, and order behind fitted cabinets with bronze mirror doors.",
             infoDetailDe:
-              "Wohnkonzept für ein Loft mit Messingakzenten, begehbarem Schrank und klarer Ordnung. Kücheninsel, Esstisch und Garderobe folgen einer einheitlichen Materialpalette — Messing, warme Töne und reduzierte Formen schaffen einen ruhigen Rahmen für den Alltag.",
+              "Stell Dir Dein Appartement mit neuer Esstischecke vor: Statement-Elemente kombiniert mit strenger Raumgestaltung. Eine Wirkung zwischen klarer Büroatmosphäre und Deinem Rückzugsort mit großzügiger Küche für tolle Abende. Ordnung hinter eingestellten Schrankelementen mit bronzefarbenen Spiegeltüren.",
             infoDetailEn:
-              "Living concept for a loft with brass accents, walk-in wardrobe, and clear order. Kitchen island, dining table, and wardrobe follow a unified material palette — brass, warm tones, and reduced forms create a calm frame for everyday life.",
+              "Imagine your apartment with a new dining area: statement elements combined with strict spatial design. An atmosphere between a clear office-like floor and your retreat with a generous kitchen for great evenings. Order behind fitted cabinet elements with bronze mirror doors.",
             keywordDe: "Brass Living",
             keywordEn: "Brass Living",
             concreteDe: "Berlin, 2026",
@@ -4755,13 +5020,13 @@
             titleDe: "Upgrade, Berlin 2023",
             titleEn: "Upgrade, Berlin 2023",
             bodyDe:
-              "Aufwertung einer Eigentumswohnung in Neukölln — klare Materialität und mehr Ruhe im Alltag.",
+              "Stell Dir Deine Zwei-Zimmer-Wohnung neu gestaltet vor: Farbe, Vintage-Möbel, großes Sofa – Deckenstrahler inszenieren Vorhänge und ein Acrylgemälde.",
             bodyEn:
-              "Upgrade of a condominium in Neukölln — clear materials and more calm in everyday life.",
+              "Imagine your two-room home redesigned: colour, vintage furniture, and a large sofa – ceiling spots stage the curtains and an acrylic painting.",
             infoDetailDe:
-              "Aufwertung einer Eigentumswohnung in Neukölln: klare Materialität, ruhige Farben und behagliche Einzelstücke schaffen einen Rückzugsort mit mehr Gelassenheit im Alltag.",
+              "Stell Dir Deine Eigentumswohnung mit zwei Zimmern vor: Schlafzimmer zum Hof, Wohnzimmer mit Essecke zur Straße und Balkon. Du gestaltest um mit Farbe, neuen Vintage-Möbeln und einem großen, bequemen Sofa. Deckenstrahler inszenieren Deine neuen Vorhänge und ein großes Acrylgemälde.",
             infoDetailEn:
-              "Upgrade of a condominium in Neukölln: clear materials, calm colours, and comfortable individual pieces create a retreat with more serenity in everyday life.",
+              "Imagine your two-room home: bedroom facing the courtyard, living room with dining nook towards the street and balcony. You redesign with colour, new vintage furniture, and a large, comfortable sofa. Ceiling spots stage your new curtains and a large acrylic painting.",
             keywordDe: "Upgrade",
             keywordEn: "Upgrade",
             concreteDe: "Berlin-Neukölln, 2023",
@@ -4779,19 +5044,70 @@
               "assets/interior/oase-table.png",
             ],
           },
+          rueckzugsort: {
+            tileLabelDe: "Rückzugsort",
+            tileLabelEn: "Retreat",
+            titleDe: "Rückzugsort, Berlin 2026",
+            titleEn: "Retreat, Berlin 2026",
+            bodyDe:
+              "Stell Dir Deinen eigenen Rückzugsort vor – abseits des Alltags, mit Ruhe, Form, Material und Inszenierung nach Deinem Geschmack.",
+            bodyEn:
+              "Imagine your own retreat – away from everyday pace, with calm, form, material, and staging to your taste.",
+            infoDetailDe:
+              "Stell Dir Deinen eigenen Rückzugsort vor. Fern vom Tempo des Alltags entsteht ein Raum, der Dir Ruhe gibt und zugleich Deine Neigung zu Form, Material und Inszenierung aufnimmt – Dein Ort, nicht der einer fremden Geschichte.",
+            infoDetailEn:
+              "Imagine your own retreat. Away from the pace of everyday life, a room emerges that offers you calm while reflecting your affinity for form, material, and staging – your place, not someone else's story.",
+            keywordDe: "Rückzugsort",
+            keywordEn: "Retreat",
+            concreteDe: "Berlin, 2026",
+            concreteEn: "Berlin, 2026",
+            imageLabelsDe: ["Rückzugsort, Berlin 2026"],
+            imageLabelsEn: ["Retreat, Berlin 2026"],
+            images: ["assets/interior/rueckzugsort.jpg"],
+          },
+          sammler: {
+            tileLabelDe: "Sammler",
+            tileLabelEn: "Collector",
+            titleDe: "Wohn- und Esszimmer, Berlin 2026",
+            titleEn: "Living and dining room, Berlin 2026",
+            bodyDe:
+              "Stell Dir Dein Wohn- und Esszimmer vor, in dem Deine Sammlung und der Alltag zusammenfinden – offen, mit Vitrinen, Esstisch und abendlicher Stimmung.",
+            bodyEn:
+              "Imagine your living and dining room where your collection and daily life come together – open, with display cases, dining table, and evening mood.",
+            infoDetailDe:
+              "Stell Dir Dein Wohn- und Esszimmer vor, in dem Deine Sammlung sichtbar bleibt und Gäste willkommen sind. Regale und Vitrinen inszenieren Deine Stücke, ein Esstisch lädt zum Verweilen ein, zurückhaltende Beleuchtung hält den Abend ruhig – Tag und Nacht als zwei Varianten Deiner Idee.",
+            infoDetailEn:
+              "Imagine your living and dining room where your collection stays visible and guests feel welcome. Shelves and display cases stage your pieces, a dining table invites you to linger, restrained lighting keeps the evening calm – day and night as two variants of your idea.",
+            keywordDe: "Sammler",
+            keywordEn: "Collector",
+            concreteDe: "Berlin, 2026",
+            concreteEn: "Berlin, 2026",
+            imageLabelsDe: [
+              "Wohn- und Esszimmer, Berlin 2026, Tag",
+              "Wohn- und Esszimmer, Berlin 2026, Abend",
+            ],
+            imageLabelsEn: [
+              "Living and dining room, Berlin 2026, daytime",
+              "Living and dining room, Berlin 2026, evening",
+            ],
+            images: [
+              "assets/interior/Marvell-Living-daytime.jpg",
+              "assets/interior/Marvell-Living-dark.jpg",
+            ],
+          },
           dieffe33: {
             tileLabelDe: "Mini-Space",
             tileLabelEn: "Mini space",
             titleDe: "Sanierung, Berlin-Kreuzberg 2025",
             titleEn: "Renovation, Berlin-Kreuzberg 2025",
             bodyDe:
-              "Mini-Apartment entkernt — neues Bad hinter der Schrankwand, Küche mit Tisch und Fenstersitzbank als räumliche Einheit.",
+              "Stell Dir Dein entkerntes Mini-Apartment vor: neues Bad hinter der Schrankwand, Küche mit Tisch und Fenstersitzbank als eine räumliche Einheit.",
             bodyEn:
-              "Mini apartment stripped back — new bathroom behind the wardrobe wall, kitchen with table and window seat as one spatial unit.",
+              "Imagine your gutted mini apartment: a new bathroom behind the wardrobe wall, kitchen with table and window seat as one spatial unit.",
             infoDetailDe:
-              "Ein kleines Apartment wurde bis auf die Substanz entkernt. Hinter einer Schrankwand entstand ein neues Bad — erreichbar über eine verspiegelte Tür und eine zweite Tür, die die Privatsphäre wahrt. Küche, eigens für den Raum entworfener Tisch und Fenstersitzbank bilden eine räumliche Einheit; über die Ecke hinweg ist der Schlafbereich sanft abgesetzt.",
+              "Stell Dir Dein kleines Apartment bis auf die Substanz entkernt vor. Hinter einer Schrankwand entsteht Dein neues Bad, erreichbar über eine verspiegelte Tür und eine zweite Tür für Privatsphäre. Küche, eigens entworfener Tisch und Fenstersitzbank bilden eine Einheit; der Schlafbereich ist sanft um die Ecke abgesetzt.",
             infoDetailEn:
-              "A small apartment was stripped back to the structure. Behind a wardrobe wall, a new bathroom was created — accessible via a mirrored door and a second door that preserves privacy. Kitchen, table designed for the space, and window seat form one spatial unit; the sleeping area is gently separated around the corner.",
+              "Imagine your small apartment stripped back to the structure. Behind a wardrobe wall, your new bathroom is created, accessible via a mirrored door and a second door for privacy. Kitchen, table designed for the space, and window seat form one unit; the sleeping area is gently separated around the corner.",
             keywordDe: "Sanierung",
             keywordEn: "Renovation",
             concreteDe: "Berlin-Kreuzberg, 2025",
@@ -4831,19 +5147,40 @@
               "assets/interior/dieffe33-keramik.jpeg",
             ],
           },
+          freiVonEckenEsszimmer: {
+            tileLabelDe: "Esszimmer mit Treppe",
+            tileLabelEn: "Dining room with stairs",
+            titleDe: "Esszimmer mit Treppe, Berlin 2026",
+            titleEn: "Dining room with stairs, Berlin 2026",
+            bodyDe:
+              "Stell Dir Deinen ehemaligen Raum mit Treppe als Esszimmer vor – mit dem Tisch Frei Von Ecken für acht Personen im Mittelpunkt.",
+            bodyEn:
+              "Imagine your former room with a staircase as a dining room – with the Frei Von Ecken table for eight people at its centre.",
+            infoDetailDe:
+              "Stell Dir Deinen Raum mit Treppe vor, der lange ungenutzt wirkte. Du richtest ihn als Esszimmer neu aus und stellst den Tisch Frei Von Ecken für acht Personen in den Mittelpunkt. Die Treppe bleibt, Dein Raum gewinnt eine klare Funktion zum gemeinsamen Essen.",
+            infoDetailEn:
+              "Imagine your room with a staircase that long felt unused. You reimagine it as a dining room and place the Frei Von Ecken table for eight people at its centre. The staircase stays; your room gains a clear purpose for eating together.",
+            keywordDe: "Esszimmer",
+            keywordEn: "Dining room",
+            concreteDe: "Berlin, 2026",
+            concreteEn: "Berlin, 2026",
+            imageLabelsDe: ["Esszimmer mit Treppe, Berlin 2026"],
+            imageLabelsEn: ["Dining room with stairs, Berlin 2026"],
+            images: ["assets/interior/FreiVonEcken-Esszimmer-mitTreppe.jpg"],
+          },
           moebel: {
             tileLabelDe: "Esstisch",
             tileLabelEn: "Dining table",
             titleDe: "Frei Von Ecken, Berlin 2026",
             titleEn: "Frei Von Ecken, Berlin 2026",
             bodyDe:
-              "Esstisch mit abgerundeten Ecken — Multiplex und lackiertes Gestell, entstanden im Kontext des Mini-Apartements.",
+              "Stell Dir einen Esstisch ohne Eck-Füße vor – drei Elemente in Anlehnung an die kubistische Formensprache der 1920er Jahre.",
             bodyEn:
-              "Dining table with rounded corners — plywood and lacquered frame, created in the context of the mini apartment.",
+              "Imagine a dining table without corner legs – three elements drawing on the cubist form language of the 1920s.",
             infoDetailDe:
-              "Entwurf für Esstische in verschiedenen Größen — abgerundete Ecken, Multiplex und lackiertes Gestell. Der Tisch entstand im Kontext des Mini-Apartements in Kreuzberg und lässt sich in Wohn- wie Arbeitskontexte übertragen.",
+              "Stell Dir Deinen Esstisch ohne Eck-Füße vor, inspiriert von der kubistischen Formensprache der 1920er Jahre: eine Platte, getragen von einer Scheibe, die von einem umgedrehten Trage-Bügel geteilt wird. Hochglanz-Holz trifft auf ein schwarzes Gestell mit Signalrot an der langen Seite – weiterentwickelt für acht bis zehn Personen.",
             infoDetailEn:
-              "Design for dining tables in various sizes — rounded corners, plywood, and lacquered frame. The table was created in the context of the mini apartment in Kreuzberg and translates to both living and working contexts.",
+              "Imagine your dining table without corner legs, inspired by the cubist form language of the 1920s: a top supported by a disc divided by an inverted carrying handle. High-gloss wood meets a black frame with signal red along the long side – developed further for eight to ten people.",
             keywordDe: "Möbelentwurf",
             keywordEn: "Furniture design",
             concreteDe: "Berlin, 2026",
@@ -4882,13 +5219,13 @@
             titleDe: "Vinothek, Geisenheim 2023",
             titleEn: "Wine bar, Geisenheim 2023",
             bodyDe:
-              "Interieur für Vinothek und Gastronomie — Material, Licht und Atmosphäre für Orte zum Verweilen.",
+              "Stell Dir Deine Vinothek oder Dein Restaurant vor: Material, Licht und Atmosphäre für Orte, an denen Gäste gern verweilen.",
             bodyEn:
-              "Interior for wine bar and hospitality — materials, light, and atmosphere for places to linger.",
+              "Imagine your wine bar or restaurant: materials, light, and atmosphere for places where guests like to linger.",
             infoDetailDe:
-              "Interieur für eine Vinothek am Weingut in Geisenheim und das Restaurant Alpenkantine in Hamburg — Material, Licht und Atmosphäre für Orte zum Verweilen.",
+              "Stell Dir Deine Vinothek am Weingut oder Dein Restaurant vor: Material, Licht und Atmosphäre für Orte, an denen Du Gäste empfängst und sie gern verweilen.",
             infoDetailEn:
-              "Interior for a winery wine bar in Geisenheim and Restaurant Alpenkantine in Hamburg — materials, light, and atmosphere for places to linger.",
+              "Imagine your winery wine bar or your restaurant: materials, light, and atmosphere for places where you receive guests and they like to linger.",
             keywordDe: "Gastronomie",
             keywordEn: "Hospitality",
             concreteDe: "Geisenheim & Hamburg",
@@ -4918,15 +5255,55 @@
               "assets/interior/alpenkantine-V2.png",
             ],
           },
+          panketal: {
+            tileLabelDe: "Bahnhofstraße",
+            tileLabelEn: "Bahnhofstraße",
+            titleDe: "Mehrfamilienwohnhaus, Panketal 2026",
+            titleEn: "Multi-family residential building, Panketal 2026",
+            bodyDe:
+              "Stell Dir Dein Mehrfamilienhaus in Ecklage vor: 10 × 15 m, fünf Wohneinheiten über drei Geschosse – klare Form, Edelputz-Fassade.",
+            bodyEn:
+              "Imagine your multi-family house on a corner site: 10 × 15 m, five units over three floors – clear volume, fine-render facade.",
+            infoDetailDe:
+              "Stell Dir Dein Mehrfamilienhaus als Neubau in freistehender Ecklage vor: Außenmaße 10,00 × 15,00 m, drei Vollgeschosse plus Keller, fünf Wohneinheiten. Zeitgemäße Formensprache, klarer Baukörper, Edelputz-Fassade mit hellem Sockel, Holzrahmenfenster, Vollkeller mit Kellerabteil je Einheit, Wärmepumpe und Fußbodenheizung.",
+            infoDetailEn:
+              "Imagine your multi-family house as a new detached building on a corner site: exterior dimensions 10.00 × 15.00 m, three full storeys plus basement, five residential units. Contemporary form language, clear volume, fine-render facade with light base, timber-frame windows, full basement with cellar compartment per unit, heat pump and underfloor heating.",
+            keywordDe: "Neubau",
+            keywordEn: "New build",
+            concreteDe: "Panketal, 2026",
+            concreteEn: "Panketal, 2026",
+            imageLabelsDe: [
+              "Mehrfamilienwohnhaus, Panketal 2026",
+              "Mehrfamilienwohnhaus, Panketal 2026, Detail",
+              "Mehrfamilienwohnhaus, Panketal 2026, Detail",
+              "Mehrfamilienwohnhaus, Panketal 2026, Rückseite",
+              "Mehrfamilienwohnhaus, Panketal 2026, Rückansicht",
+            ],
+            imageLabelsEn: [
+              "Multi-family residential building, Panketal 2026",
+              "Multi-family residential building, Panketal 2026, detail",
+              "Multi-family residential building, Panketal 2026, detail",
+              "Multi-family residential building, Panketal 2026, rear",
+              "Multi-family residential building, Panketal 2026, rear view",
+            ],
+            images: [
+              "assets/hochbau/Panketal_Bahnhofstr29-BIIG-260625-VIS2.png",
+              "assets/hochbau/Panketal_Bahnhofstr29-BIIG-260629-VIS_Detail01.jpg",
+              "assets/hochbau/Panketal_Bahnhofstr29-BIIG-260629-VIS_Detail03.jpg",
+              "assets/hochbau/Panketal_Bahnhofstr29-BIIG-260630-VIS-Rückseite.jpg",
+              "assets/hochbau/Panketal_Bahnhofstr29-BIIG-260630-VIS-Rück_ortho.jpg",
+            ],
+            cropPosition: "center center",
+          },
           klinker: {
             tileLabelDe: "Klinkertreppe",
             tileLabelEn: "Brick staircase",
             titleDe: "Studie, Hamburg-Ottensen 2016",
             titleEn: "Study, Hamburg-Ottensen 2016",
             bodyDe:
-              "Studie für eine Baulücke — Klinkertreppe am Wohnhaus, präzise Details und dauerhafte Materialwahl.",
+              "Stell Dir eine Klinkertreppe an Deinem Wohnhaus vor – präzise Details und dauerhafte Materialwahl in einer Baulücke.",
             bodyEn:
-              "Study for an infill site — brick staircase on a residential building, precise details and lasting materials.",
+              "Imagine a brick staircase on your residential building – precise details and lasting materials in an infill site.",
             keywordDe: "Architektur",
             keywordEn: "Architecture",
             concreteDe: "Hamburg-Ottensen, 2016",
@@ -4940,38 +5317,47 @@
             titleDe: "Sanierung, Hamburg-Blankenese 2015",
             titleEn: "Renovation, Hamburg-Blankenese 2015",
             bodyDe:
-              "Sanierung und Einrichtung einer Etage — Treppenhaus, Wohn- und Pantry-Bereich neu gedacht.",
+              "Stell Dir Deine Etage neu gedacht vor: Treppenhaus, Wohn- und Pantry-Bereich mit Respekt vor dem Bestand.",
             bodyEn:
-              "Renovation and furnishing of a floor — stairwell, living, and pantry areas reimagined.",
+              "Imagine your floor reimagined: stairwell, living, and pantry areas with respect for the existing fabric.",
             infoDetailDe:
-              "Sanierung und Einrichtung einer Etage in einem Geschäftshaus in Hamburg-Blankenese. Treppenhaus, Wohn- und Pantry-Bereich wurden neu gedacht — mit Respekt vor dem Bestand und Fokus auf Wohnqualität im urbanen Kontext.",
+              "Stell Dir Deine Etage in einem Geschäftshaus vor, neu gedacht: Treppenhaus, Wohn- und Pantry-Bereich mit Respekt vor dem Bestand und Fokus auf Deine Wohnqualität im urbanen Kontext.",
             infoDetailEn:
-              "Renovation and furnishing of a floor in a commercial building in Hamburg-Blankenese. Stairwell, living, and pantry areas were reimagined — with respect for the existing fabric and a focus on quality of living in an urban context.",
+              "Imagine your floor in a commercial building, reimagined: stairwell, living, and pantry areas with respect for the existing fabric and a focus on your quality of living in an urban context.",
             keywordDe: "Umbau",
             keywordEn: "Renovation",
             concreteDe: "Hamburg-Blankenese, 2015",
             concreteEn: "Hamburg-Blankenese, 2015",
             imageLabelsDe: [
+              "Elbchaussee, Visualisierung Wohnung",
               "Sanierung, Hamburg-Blankenese 2015",
               "Sanierung, Hamburg-Blankenese 2015",
               "Sanierung, Hamburg-Blankenese 2015",
               "Sanierung, Hamburg-Blankenese 2015",
               "Sanierung, Hamburg-Blankenese 2015",
+              "Elbchaussee, Straßenansicht nach Fertigstellung",
             ],
             imageLabelsEn: [
+              "Elbchaussee, apartment visual",
               "Renovation, Hamburg-Blankenese 2015",
               "Renovation, Hamburg-Blankenese 2015",
               "Renovation, Hamburg-Blankenese 2015",
               "Renovation, Hamburg-Blankenese 2015",
               "Renovation, Hamburg-Blankenese 2015",
+              "Elbchaussee, street view after completion",
             ],
             images: [
+              "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/elbchaussee-VIS-wohnung.jpg",
               "assets/interior/rene-möbliert-01.png",
               "assets/interior/treppe.png?v=2",
               "assets/interior/rene-querblick.png",
               "assets/interior/hagen.jpg?v=2",
               "assets/interior/rene-pantry.png",
+              "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/IMG_2503.JPG",
             ],
+            serviceImageOrder: {
+              "bi-pricing-hochbau": [6, 0, 1, 2, 3, 4, 5],
+            },
           },
           rothestr: {
             tileLabelDe: "Rothestraße",
@@ -4979,9 +5365,9 @@
             titleDe: "Neubau, Hamburg-Ottensen 2015",
             titleEn: "New build, Hamburg-Ottensen 2015",
             bodyDe:
-              "Realisierung von elf Wohnungen — kompakte Grundrisse, urbaner Kontext, solide Bauweise.",
+              "Stell Dir elf Wohnungen in kompakten Grundrissen vor – in Deinem urbanen Kontext, solide gebaut.",
             bodyEn:
-              "Realisation of eleven apartments — compact layouts, urban context, solid construction.",
+              "Imagine eleven apartments in compact layouts – in your urban context, solidly built.",
             keywordDe: "Neubau",
             keywordEn: "New build",
             concreteDe: "11 WE, Hamburg 2015",
@@ -5001,9 +5387,9 @@
             titleDe: "Neubau, Hamburg-Stellingen 2015",
             titleEn: "New build, Hamburg-Stellingen 2015",
             bodyDe:
-              "Drei Wohneinheiten — effiziente Flächen, Tageslicht und klare Fassadenlogik.",
+              "Stell Dir drei Wohneinheiten vor: effiziente Flächen, viel Tageslicht und klare Fassadenlogik.",
             bodyEn:
-              "Three residential units — efficient floor plans, daylight, and clear facade logic.",
+              "Imagine three residential units: efficient floor plans, daylight, and clear facade logic.",
             keywordDe: "Neubau",
             keywordEn: "New build",
             concreteDe: "3 WE, Hamburg 2015",
@@ -5017,9 +5403,9 @@
             titleDe: "Sanierung, Hamburg 2016",
             titleEn: "Renovation, Hamburg 2016",
             bodyDe:
-              "Fassadensanierung und Modernisierung — Bestand bewahren, Qualität sichtbar machen.",
+              "Stell Dir Deine sanierte Fassade vor: Bestand bewahren, Qualität sichtbar machen.",
             bodyEn:
-              "Facade renovation and modernisation — preserving the existing, making quality visible.",
+              "Imagine your renovated facade: preserving what exists, making quality visible.",
             keywordDe: "Sanierung",
             keywordEn: "Renovation",
             concreteDe: "Hamburg, 2016",
@@ -5033,9 +5419,9 @@
             titleDe: "Wettbewerb, Schleswig 2016",
             titleEn: "Competition, Schleswig 2016",
             bodyDe:
-              "Wettbewerbsentwurf für Wohnbebauung und Ärztehaus — städtebaulicher Kontext an der Waterkant.",
+              "Stell Dir Deine Wohnbebauung mit Ärztehaus an der Waterkant vor – städtebaulich eingebunden.",
             bodyEn:
-              "Competition entry for housing and a medical centre — urban design on the waterfront.",
+              "Imagine your housing with a medical centre on the waterfront – embedded in the urban context.",
             keywordDe: "Wettbewerb",
             keywordEn: "Competition",
             concreteDe: "Schleswig, 2016",
@@ -5049,9 +5435,9 @@
             titleDe: "Entwurf, Wedel 2016",
             titleEn: "Design, Wedel 2016",
             bodyDe:
-              "Wohnhaus mit klarer Kubatur — kompakte Bebauung im städtischen Kontext.",
+              "Stell Dir Dein Wohnhaus mit klarer Kubatur vor – kompakte Bebauung im städtischen Kontext.",
             bodyEn:
-              "Residential building with clear volume — compact development in an urban context.",
+              "Imagine your residential building with clear volume: compact development in an urban context.",
             keywordDe: "Entwurf",
             keywordEn: "Design",
             concreteDe: "Wedel, 2016",
@@ -5065,9 +5451,9 @@
             titleDe: "Entwurf, Hamburg 2013",
             titleEn: "Design, Hamburg 2013",
             bodyDe:
-              "Studie für ein Doppelhaus — klare Kubatur und zurückhaltende Fassade im Bestandskontext.",
+              "Stell Dir ein Doppelhaus vor: klare Kubatur und zurückhaltende Fassade im Bestandskontext.",
             bodyEn:
-              "Study for a duplex house — clear volume and restrained facade in the existing context.",
+              "Imagine a duplex house: clear volume and restrained facade in the existing context.",
             keywordDe: "Studie",
             keywordEn: "Study",
             concreteDe: "Hamburg, 2013",
@@ -5148,6 +5534,7 @@
 
         var BUY_OFFERS = {
           moebel: {
+            buyUrl: "kaufen/tisch.html",
             slides: [
               {
                 src: "assets/interior/freivonecken130-villaecke.png",
@@ -5253,6 +5640,48 @@
             captionDe: "Berlin Kreuzberg, Wohnungsarrengement",
             captionEn: "Berlin Kreuzberg, apartment layout",
           },
+          {
+            src: "assets/interior/buero-essraum.jpg",
+            altDe: "Essraum im Bürotrakt mit Blick auf den Garten",
+            altEn: "Dining room in the office wing with a view of the garden",
+            captionDe: "Restrukturierung Familienfirmensitz, NRW 2026",
+            captionEn: "Family company headquarters restructuring, NRW 2026",
+          },
+          {
+            src: "assets/interior/homeoffice-mitKunst.png",
+            altDe: "Homeoffice mit Wandregal, Schreibtisch und Kunst",
+            altEn: "Home office with wall unit, desk, and art",
+            captionDe: "Homeoffice-Einrichtung, Berlin 2021",
+            captionEn: "Home office fit-out, Berlin 2021",
+          },
+          {
+            src: "assets/interior/Marvell-Living-dark.jpg",
+            altDe: "Wohn- und Esszimmer mit inszenierter Sammlung, Abendlicht",
+            altEn: "Living and dining room with staged collection, evening light",
+            captionDe: "Wohn- und Esszimmer, Berlin 2026",
+            captionEn: "Living and dining room, Berlin 2026",
+          },
+          {
+            src: "assets/interior/traudi-küche.png",
+            altDe: "Küche als räumliche Mitte in einem sanierten Einfamilienhaus",
+            altEn: "Kitchen as the spatial centre in a renovated single-family house",
+            captionDe: "Sanierung, Augsburg 2013",
+            captionEn: "Renovation, Augsburg 2013",
+          },
+          {
+            src: "assets/interior/alpenkantine-V01.png?v=2",
+            altDe: "Alpenkantine in Hamburg-Eimsbüttel, Gastraum mit Markenauftritt",
+            altEn: "Alpenkantine in Hamburg-Eimsbüttel, hospitality space with brand presence",
+            captionDe: "Alpenkantine, Hamburg 2009",
+            captionEn: "Alpenkantine, Hamburg 2009",
+          },
+          {
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/elbchaussee-VIS-wohnung.jpg",
+            altDe: "Visualisierung einer Wohnung an der Elbchaussee",
+            altEn: "Visualisation of an apartment on Elbchaussee",
+            captionDe: "Hamburg Elbchaussee, Visualisierung Wohnung",
+            captionEn: "Hamburg Elbchaussee, apartment visual",
+          },
         ];
 
         var HOCHBAU_TILE_LABEL = {
@@ -5260,11 +5689,12 @@
           tileLabelEn: "Building projects",
         };
 
-        var HOCHBAU_IDS = ["klinker", "rothestr", "graefe", "destijl", "schleswig", "wedel", "neubauhausstrasse"];
+        var HOCHBAU_IDS = ["panketal", "klinker", "rothestr", "graefe", "destijl", "schleswig", "wedel", "neubauhausstrasse"];
+        var HOCHBAU_TRAILING_TILES = ["umbauten", "bueroraeume", "vinothekGeo"];
 
         var SERVICE_FILTERS = {
           "bi-pricing-ordnung": {
-            tiles: ["dieffe33", "altbau2", "ordnung", "oase"],
+            tiles: ["dieffe33", "altbau2", "ordnung", "oase", "sammler", "bueroraeume", "rueckzugsort"],
             titleDe: "Aufräumservice oder Ideen sortieren",
             titleEn: "Decluttering service or sorting ideas",
             processTitleDe: "Aufräumen: Ablauf",
@@ -5277,12 +5707,16 @@
               "altbau2",
               "homeoffice1",
               "homeoffice2",
+              "bueroraeume",
               "hausA",
               "hausB",
               "ordnung",
               "kueche",
               "kochinsel",
               "oase",
+              "sammler",
+              "umbauten",
+              "freiVonEckenEsszimmer",
               "vinothekGeo",
               "vinothekAlpen",
               "moebel",
@@ -5293,7 +5727,7 @@
             processTitleEn: "Design: process",
           },
           "bi-pricing-handwerker": {
-            tiles: ["dieffe33", "homeoffice1", "hausA", "vinothekGeo"],
+            tiles: ["dieffe33", "homeoffice1", "hausA", "vinothekGeo", "rothestr", "graefe", "destijl", "umbauten"],
             titleDe: "Vom baubarer Entwurf bis alles inklusive",
             titleEn: "From buildable design to all-inclusive",
             processTitleDe: "Grober Ablauf",
@@ -5301,13 +5735,14 @@
           },
           "bi-pricing-hochbau": {
             hochbau: true,
+            tiles: ["umbauten", "bueroraeume", "vinothekGeo"],
             processTitleDe: "Gebäudeplanung: Ablauf",
             processTitleEn: "Building planning: process",
           },
           "bi-pricing-moebel": {
-            tiles: ["moebel"],
-            titleDe: "Im Projekt des Mini-Apartements entstanden",
-            titleEn: "Created in the mini-apartment project",
+            tiles: ["moebel", "homeoffice1", "kueche", "vinothekGeo", "sammler", "bueroraeume", "ordnung", "umbauten"],
+            titleDe: "Individuelle Möbel höchstwertig oder günstig",
+            titleEn: "Custom furniture, premium or affordable",
             processTitleDe: "Möbelentwurf: Ablauf",
             processTitleEn: "Furniture design: process",
           },
@@ -5364,12 +5799,12 @@
                 titleDe: "Termin vor Ort oder Webcall",
                 titleEn: "On-site visit or web call",
                 bodyDe:
-                  "Je nach Bedarf treffen wir uns vor Ort oder per Video – direkt, ohne Umwege.",
-                bodyEn: "As needed, we meet on site or by video – directly, without detours.",
+                  "Je nach Bedarf treffen wir uns vor Ort oder per Video, direkt, ohne Umwege.",
+                bodyEn: "As needed, we meet on site or by video, directly, without detours.",
               },
               {
-                titleDe: "Konzept mit Tabelle – ggf. Zeichnung",
-                titleEn: "Concept with spreadsheet – drawing if needed",
+                titleDe: "Konzept mit Tabelle, ggf. Zeichnung",
+                titleEn: "Concept with spreadsheet, drawing if needed",
                 bodyDe:
                   "Du bekommst ein sortiertes Konzept mit Übersichtstabelle; wenn nötig ergänzt um eine Skizze.",
                 bodyEn:
@@ -5397,21 +5832,21 @@
                 titleDe: "30 Min. Gespräch",
                 titleEn: "30 min conversation",
                 bodyDe:
-                  "Ziele, Ressourcen und Umfang klären wir im ersten Gespräch – ob Zimmerecke oder ganze Etage.",
+                  "Ziele, Ressourcen und Umfang klären wir im ersten Gespräch, ob Zimmerecke oder ganze Etage.",
                 bodyEn:
-                  "Goals, resources, and scope in the first conversation – whether a room corner or a full floor.",
+                  "Goals, resources, and scope in the first conversation, whether a room corner or a full floor.",
               },
               {
                 titleDe: "Protokoll",
                 titleEn: "Summary",
-                bodyDe: "Wünsche, Rahmen und nächste Schritte werden festgehalten – Deine Basis für alles Weitere.",
-                bodyEn: "Wishes, scope, and next steps are documented – your basis for everything that follows.",
+                bodyDe: "Wünsche, Rahmen und nächste Schritte werden festgehalten, Deine Basis für alles Weitere.",
+                bodyEn: "Wishes, scope, and next steps are documented, your basis for everything that follows.",
               },
               {
                 titleDe: "Freigabe",
                 titleEn: "Approval",
-                bodyDe: "Du gibst den Kurs frei – dann starten wir mit der Ausarbeitung des Konzepts.",
-                bodyEn: "You approve the direction – then we begin developing the concept.",
+                bodyDe: "Du gibst den Kurs frei, dann starten wir mit der Ausarbeitung des Konzepts.",
+                bodyEn: "You approve the direction, then we begin developing the concept.",
               },
               {
                 titleDe: "Konzept mit Plan, Visu, Tabelle",
@@ -5489,9 +5924,9 @@
                 titleDe: "30 Min. Gespräch",
                 titleEn: "30 min conversation",
                 bodyDe:
-                  "Projektziele, Standort und bauantragsrelevanter Umfang – wir klären den Rahmen im Erstgespräch.",
+                  "Projektziele, Standort und bauantragsrelevanter Umfang, wir klären den Rahmen im Erstgespräch.",
                 bodyEn:
-                  "Project goals, site, and permit-relevant scope – we clarify the framework in the intro call.",
+                  "Project goals, site, and permit-relevant scope, we clarify the framework in the intro call.",
               },
               {
                 titleDe: "Protokoll & Partnerbüro",
@@ -5505,9 +5940,9 @@
                 titleDe: "Konzept mit Plan, Visu, Tabelle",
                 titleEn: "Concept with plan, visual, spreadsheet",
                 bodyDe:
-                  "Entwurf, Visualisierung und Leistungsübersicht – abgestimmt zwischen Design und baurechtlichen Anforderungen.",
+                  "Entwurf, Visualisierung und Leistungsübersicht, abgestimmt zwischen Design und baurechtlichen Anforderungen.",
                 bodyEn:
-                  "Design, visualisation, and scope overview – aligned between design and planning requirements.",
+                  "Design, visualisation, and scope overview, aligned between design and planning requirements.",
               },
               {
                 titleDe: "Freigabe oder Überarbeitung",
@@ -5520,9 +5955,9 @@
                 titleDe: "Bauantrag & Backup",
                 titleEn: "Planning application & backup",
                 bodyDe:
-                  "Das Partnerbüro begleitet Bauantrag und bietet architektonisches Backup – ich koordiniere den Prozess.",
+                  "Das Partnerbüro begleitet Bauantrag und bietet architektonisches Backup, ich koordiniere den Prozess.",
                 bodyEn:
-                  "The partner office handles the permit application and provides architectural backup – I coordinate the process.",
+                  "The partner office handles the permit application and provides architectural backup, I coordinate the process.",
               },
               {
                 titleDe: "Optional: Ausschreibung, Bauleitung & Recap",
@@ -5540,25 +5975,25 @@
                 titleDe: "30 Min. Gespräch",
                 titleEn: "30 min conversation",
                 bodyDe:
-                  "Maße, Material, Stil und Budget – wir klären, was der Möbelentwurf leisten soll.",
+                  "Maße, Material, Stil und Budget, wir klären, was der Möbelentwurf leisten soll.",
                 bodyEn:
-                  "Dimensions, material, style, and budget – we clarify what the furniture design should deliver.",
+                  "Dimensions, material, style, and budget, we clarify what the furniture design should deliver.",
               },
               {
                 titleDe: "Protokoll",
                 titleEn: "Summary",
                 bodyDe:
-                  "Anforderungen und Rahmen halten wir schriftlich fest – Deine Basis für Entwurf und Tischlerabstimmung.",
+                  "Anforderungen und Rahmen halten wir schriftlich fest, Deine Basis für Entwurf und Tischlerabstimmung.",
                 bodyEn:
-                  "Requirements and scope in writing – your basis for design and joiner coordination.",
+                  "Requirements and scope in writing, your basis for design and joiner coordination.",
               },
               {
                 titleDe: "Entwurf & Konzept",
                 titleEn: "Design & concept",
                 bodyDe:
-                  "Skizze, Maßzeichnung und Materialvorschlag – angepasst an Deinen Ort und Deine Ressourcen.",
+                  "Skizze, Maßzeichnung und Materialvorschlag, angepasst an Deinen Ort und Deine Ressourcen.",
                 bodyEn:
-                  "Sketch, dimension drawing, and material proposal – tailored to your space and resources.",
+                  "Sketch, dimension drawing, and material proposal, tailored to your space and resources.",
               },
               {
                 titleDe: "Freigabe oder Überarbeitung",
@@ -5579,9 +6014,9 @@
                 titleDe: "Recap & Übergabe",
                 titleEn: "Recap & handover",
                 bodyDe:
-                  "Abschluss mit Zusammenfassung und belastbarer Zeichnung – Dein Möbelstück kann entstehen.",
+                  "Abschluss mit Zusammenfassung und belastbarer Zeichnung, Dein Möbelstück kann entstehen.",
                 bodyEn:
-                  "Closing with summary and reliable drawing – your piece of furniture can be built.",
+                  "Closing with summary and reliable drawing, your piece of furniture can be built.",
               },
             ],
           },
@@ -5602,7 +6037,11 @@
           kueche: 4,
           kochinsel: 3,
           oase: 4,
-          umbauten: 5,
+          sammler: 2,
+          rueckzugsort: 2,
+          bueroraeume: 2,
+          freiVonEckenEsszimmer: 2,
+          umbauten: 7,
           vinothekGeo: 5,
           vinothekAlpen: 4,
         };
@@ -5712,7 +6151,10 @@
         }
 
         function projectHasInfoSlide(projectId) {
-          return !!projectId && HOCHBAU_IDS.indexOf(projectId) === -1;
+          if (!projectId) return false;
+          var project = PROJECTS[projectId];
+          if (project && (project.infoDetailDe || project.infoDetailEn)) return true;
+          return HOCHBAU_IDS.indexOf(projectId) === -1;
         }
 
         function buildInfoBodyText(project, lang) {
@@ -5805,6 +6247,7 @@
         }
 
         var HOCHBAU_THUMB_FOCUS = [
+          "center center",
           "28% center",
           "center center",
           "center center",
@@ -5851,7 +6294,6 @@
         var heroAudio = document.getElementById("bi-hero-audio");
         var heroSound = document.getElementById("bi-hero-sound");
         var heroSoundNavSlot = document.getElementById("bi-nav-sound-slot");
-        var heroSoundHome = document.querySelector(".bi-hero__figure");
         var slideIndex = 0;
         var slideCount = 0;
         var heroIndex = 0;
@@ -5920,17 +6362,29 @@
 
         var FC_IMG_TILE = 800;
         var FC_IMG_SLIDE = 1400;
-        var FC_IMG_HERO = 1600;
+        var FC_IMG_HERO = 1400;
 
         function biSetImg(img, src, width) {
-          if (!img) return;
+          if (!img || !src) return;
+          var pathOnly = String(src).split("?")[0];
+          if (/\.(jpe?g|png)$/i.test(pathOnly)) {
+            img.setAttribute("data-fc-fallback", src);
+          }
           if (window.fcSetImage) window.fcSetImage(img, src, width);
           else img.src = src;
         }
 
+        function portfolioTileImageSrc(img) {
+          if (!img) return "";
+          var fallback = img.getAttribute("data-fc-fallback");
+          var src = img.getAttribute("src") || "";
+          if (fallback && /-(800|1000|1200|1400|1600)\.webp/i.test(src.split("?")[0])) return fallback;
+          return fallback || src;
+        }
+
         function upgradePortfolioTileImages() {
           document.querySelectorAll(".bi-tile--project .bi-tile__media > img").forEach(function (img) {
-            var src = img.getAttribute("src");
+            var src = portfolioTileImageSrc(img);
             if (src) biSetImg(img, src, FC_IMG_TILE);
           });
         }
@@ -6036,13 +6490,104 @@
           };
         }
 
-        function buildProjectLightboxImageItems(projectId, startImageIndex, labels) {
+        function getProjectImageOrder(project, serviceKey) {
+          if (!project || !project.images || !project.images.length) return [];
+          var order = project.serviceImageOrder && serviceKey && project.serviceImageOrder[serviceKey];
+          if (order && order.length) return order.slice();
+          var indexes = [];
+          for (var i = 0; i < project.images.length; i++) indexes.push(i);
+          return indexes;
+        }
+
+        function getProjectTileImage(project, serviceKey) {
+          if (!project || !project.images || !project.images.length) return "";
+          var order = getProjectImageOrder(project, serviceKey);
+          return project.images[order[0]];
+        }
+
+        function updateServiceProjectTileImages(serviceKey) {
+          document.querySelectorAll("[data-bi-project]").forEach(function (tile) {
+            var projectId = tile.getAttribute("data-bi-project");
+            var project = PROJECTS[projectId];
+            if (!project || !project.serviceImageOrder) return;
+            var img = tile.querySelector(".bi-tile__media img");
+            if (!img) return;
+            biSetImg(img, getProjectTileImage(project, serviceKey), FC_IMG_TILE);
+          });
+        }
+
+        function findPortfolioTile(projectId) {
+          var portfolio = document.getElementById("bi-portfolio");
+          if (!portfolio) return null;
+          return portfolio.querySelector(
+            '.bi-tile--project[data-bi-project="' + projectId + '"]:not(.bi-tile--hochbau-item)'
+          );
+        }
+
+        var hochbauTrailingHome = {};
+
+        function rememberTrailingTileHome(tile) {
+          var id = tile.getAttribute("data-bi-project");
+          if (!id || hochbauTrailingHome[id]) return;
+          hochbauTrailingHome[id] = {
+            parent: tile.parentNode,
+            next: tile.nextSibling,
+          };
+        }
+
+        function restoreHochbauTrailingTiles() {
+          HOCHBAU_TRAILING_TILES.forEach(function (projectId) {
+            var tile = findPortfolioTile(projectId);
+            var home = hochbauTrailingHome[projectId];
+            if (!tile || !home || !home.parent) return;
+            if (home.next && home.next.parentNode === home.parent) {
+              home.parent.insertBefore(tile, home.next);
+            } else {
+              home.parent.appendChild(tile);
+            }
+          });
+        }
+
+        function ensureHochbauTrailingRow() {
+          var grid = document.querySelector("#bi-portfolio .bi-grid");
+          var hochbauRow = document.getElementById("bi-hochbau-tiles-row");
+          if (!grid || !hochbauRow) return null;
+          var slot = document.getElementById("bi-hochbau-trailing-row");
+          if (!slot) {
+            slot = document.createElement("div");
+            slot.id = "bi-hochbau-trailing-row";
+            slot.className = "bi-image-row bi-hochbau-trailing-row";
+            var scroll = document.createElement("div");
+            scroll.className = "bi-image-row__scroll";
+            scroll.id = "bi-hochbau-trailing-inner";
+            slot.appendChild(scroll);
+          }
+          if (hochbauRow.nextSibling !== slot) {
+            grid.insertBefore(slot, hochbauRow.nextSibling);
+          }
+          return document.getElementById("bi-hochbau-trailing-inner");
+        }
+
+        function placeHochbauTrailingTiles() {
+          var inner = ensureHochbauTrailingRow();
+          if (!inner) return;
+          HOCHBAU_TRAILING_TILES.forEach(function (projectId) {
+            var tile = findPortfolioTile(projectId);
+            if (!tile) return;
+            rememberTrailingTileHome(tile);
+            inner.appendChild(tile);
+          });
+        }
+
+        function buildProjectLightboxImageItems(projectId, startImageIndex, labels, serviceKey) {
           var project = PROJECTS[projectId];
           if (!project || !project.images || !project.images.length) return [];
+          serviceKey = serviceKey || activeServiceKey;
+          var imageIndexes = getProjectImageOrder(project, serviceKey);
           var start = Math.max(0, Math.min(startImageIndex || 0, project.images.length - 1));
-          var imageIndexes = [];
-          for (var i = start; i < project.images.length; i++) imageIndexes.push(i);
-          for (var j = 0; j < start; j++) imageIndexes.push(j);
+          var startPos = imageIndexes.indexOf(start);
+          if (startPos === -1) startPos = 0;
+          imageIndexes = imageIndexes.slice(startPos).concat(imageIndexes.slice(0, startPos));
           return imageIndexes.map(function (imageIndex) {
             return {
               src: project.images[imageIndex],
@@ -6770,8 +7315,13 @@
           buyInfoBody.textContent = lang === "en" ? slide.bodyEn : slide.bodyDe;
           buyInfoSpec.textContent = lang === "en" ? slide.specEn : slide.specDe;
           if (buyLink) {
-            var subject = encodeURIComponent(lang === "en" ? slide.mailSubjectEn : slide.mailSubjectDe);
-            buyLink.href = "../kontakt/index.html?anfrage=" + subject;
+            var offer = BUY_OFFERS[openBuyId];
+            if (offer && offer.buyUrl) {
+              buyLink.href = offer.buyUrl;
+            } else {
+              var subject = encodeURIComponent(lang === "en" ? slide.mailSubjectEn : slide.mailSubjectDe);
+              buyLink.href = "kontakt/index.html?anfrage=" + subject;
+            }
           }
           if (buyPrev) buyPrev.hidden = buyIndex <= 0;
           if (buyNext) buyNext.hidden = buyIndex >= slides.length - 1;
@@ -6880,15 +7430,9 @@
         }
 
         function placeHeroSoundControl() {
-          if (!heroSound || !heroSoundNavSlot || !heroSoundHome) return;
-          var moveToNav = window.matchMedia("(max-width: 520px)").matches;
-          if (moveToNav) {
-            if (heroSound.parentNode !== heroSoundNavSlot) heroSoundNavSlot.appendChild(heroSound);
-            heroSoundNavSlot.removeAttribute("aria-hidden");
-            return;
-          }
-          if (heroSound.parentNode !== heroSoundHome) heroSoundHome.appendChild(heroSound);
-          heroSoundNavSlot.setAttribute("aria-hidden", "true");
+          if (!heroSound || !heroSoundNavSlot) return;
+          if (heroSound.parentNode !== heroSoundNavSlot) heroSoundNavSlot.appendChild(heroSound);
+          heroSoundNavSlot.removeAttribute("aria-hidden");
         }
 
         function toggleHeroSound() {
@@ -6956,8 +7500,8 @@
             img.alt = lang === "en" ? slide.altEn : slide.altDe;
             img.decoding = "async";
             img.loading = i === 0 ? "eager" : "lazy";
-            img.width = 1600;
-            img.height = 1000;
+            img.width = 1400;
+            img.height = 875;
             if (slide.objectPosition) img.style.objectPosition = slide.objectPosition;
             if (slide.scale) {
               img.style.transform = "scale(" + slide.scale + ")";
@@ -7047,7 +7591,7 @@
             var media = document.createElement("span");
             media.className = "bi-tile__media";
             var img = document.createElement("img");
-            biSetImg(img, project.images[0], FC_IMG_TILE);
+            biSetImg(img, getProjectTileImage(project, activeServiceKey), FC_IMG_TILE);
             img.alt = pick(project, "title");
             img.decoding = "async";
             img.loading = i < 4 ? "eager" : "lazy";
@@ -7080,64 +7624,270 @@
           });
         }
 
-        function renderProcessSteps(serviceKey) {
-          var grid = document.getElementById("bi-process-grid");
-          var processSection = document.getElementById("bi-process");
-          var titleDe = document.getElementById("bi-process-title-de");
-          var titleEn = document.getElementById("bi-process-title-en");
-          if (!grid) return;
+        var ROCKET_DIEFFENBACHSTR_FRAMES = [
+          {
+            wordDe: "Idee",
+            wordEn: "Idea",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/75D71C16-5E6A-401C-B693-EC7EEA750FD7.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Maße",
+            wordEn: "Dimensions",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/IMG_0408.JPG",
+            ms: 1000,
+          },
+          {
+            wordDe: "Zeichnung",
+            wordEn: "Drawing",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/940ef00a-cda0-4611-958f-ca66bc43bb6e.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Handwerker",
+            wordEn: "Trades",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/IMG_1058.jpeg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Einzug",
+            wordEn: "Move-in",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Dieffenbachstr/IMG_2798.jpeg",
+            ms: 1000,
+          },
+        ];
 
-          if (processSection) {
-            processSection.hidden = false;
-            processSection.classList.toggle("is-service-process-active", !!serviceKey);
+        var ROCKET_ROTHESTR_FRAMES = [
+          {
+            wordDe: "Idee",
+            wordEn: "Idea",
+            src: "assets/interior-rocketscience/Rothestr-VIS-Wohnung.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Zeichnung",
+            wordEn: "Drawing",
+            src: "assets/interior-rocketscience/Hochbau/Rothestr/ROT-5AR-GR-G2-144-E.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Handwerker",
+            wordEn: "Trades",
+            src: "assets/interior-rocketscience/Hochbau/Rothestr/P1020926.JPG",
+            ms: 1000,
+          },
+          {
+            wordDe: "Handwerker",
+            wordEn: "Trades",
+            src: "assets/interior-rocketscience/Hochbau/Rothestr/P1060369.JPG",
+            ms: 1000,
+          },
+          {
+            wordDe: "Stadtbild",
+            wordEn: "City view",
+            src: "assets/interior-rocketscience/Hochbau/Rothestr/BJG_Rothestraße_150805_04+05.tiff",
+            ms: 1000,
+          },
+        ];
+
+        var ROCKET_ELBCHAUSSEE_FRAMES = [
+          {
+            wordDe: "Idee",
+            wordEn: "Idea",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/elbchaussee-VIS-wohnung.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Auftrag",
+            wordEn: "Brief",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/119-VIS-Haustür02.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Zeichnung",
+            wordEn: "Drawing",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/119-5-AR- ZNG.jpg",
+            ms: 1000,
+          },
+          {
+            wordDe: "Handwerker",
+            wordEn: "Trades",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/P1010918.JPG",
+            ms: 1000,
+          },
+          {
+            wordDe: "Straßenansicht",
+            wordEn: "Street view",
+            src: "assets/interior-rocketscience/Konstruktionszeichnung/Elbchaussee/IMG_2503.JPG",
+            ms: 1000,
+          },
+        ];
+
+        var ROCKET_INTERIOR_FRAMES = ROCKET_DIEFFENBACHSTR_FRAMES.concat(ROCKET_ELBCHAUSSEE_FRAMES);
+        var ROCKET_HOCHBAU_FRAMES = ROCKET_ROTHESTR_FRAMES.concat(ROCKET_ELBCHAUSSEE_FRAMES);
+
+        function rocketImageUrl(src) {
+          var parts = src.split("/");
+          var file = parts.pop();
+          return parts.join("/") + "/" + encodeURIComponent(file);
+        }
+
+        function createRocketScienceController(cfg) {
+          var frames = cfg.frames;
+          var timer = null;
+          var index = 0;
+          var started = false;
+          var expanded = false;
+          var viewportTick = false;
+
+          function showFrame(frameIndex) {
+            var frame = frames[frameIndex];
+            var bg = document.getElementById(cfg.bgId);
+            var wordDe = document.getElementById(cfg.wordDeId);
+            var wordEn = document.getElementById(cfg.wordEnId);
+            if (!frame || !bg) return;
+            bg.style.backgroundImage = 'url("' + rocketImageUrl(frame.src) + '")';
+            if (wordDe) wordDe.textContent = frame.wordDe;
+            if (wordEn) wordEn.textContent = frame.wordEn;
           }
 
-          var filter = serviceKey ? SERVICE_FILTERS[serviceKey] : null;
-          var processData =
-            serviceKey && PROCESS_STEPS[serviceKey] && PROCESS_STEPS[serviceKey].steps
-              ? PROCESS_STEPS[serviceKey]
-              : PROCESS_STEPS.default;
-          var steps = processData.steps || PROCESS_STEPS.default.steps;
+          function tickSequence() {
+            var frame = frames[index];
+            if (!frame) return;
+            timer = window.setTimeout(function () {
+              index = (index + 1) % frames.length;
+              showFrame(index);
+              tickSequence();
+            }, frame.ms);
+          }
 
-          if (titleDe && titleEn) {
-            if (filter && filter.processTitleDe) {
-              titleDe.textContent = filter.processTitleDe;
-              titleEn.textContent = filter.processTitleEn || filter.processTitleDe;
-            } else if (processData.titleDe) {
-              titleDe.textContent = processData.titleDe;
-              titleEn.textContent = processData.titleEn || processData.titleDe;
-            } else {
-              titleDe.textContent = PROCESS_STEPS.default.titleDe;
-              titleEn.textContent = PROCESS_STEPS.default.titleEn;
+          function preloadImages() {
+            return Promise.all(
+              frames.map(function (frame) {
+                return new Promise(function (resolve) {
+                  var img = new Image();
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                  img.src = rocketImageUrl(frame.src);
+                });
+              })
+            );
+          }
+
+          function startSequence() {
+            if (started) return;
+            started = true;
+            index = 0;
+            showFrame(0);
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+            tickSequence();
+          }
+
+          function initSequence() {
+            if (timer) window.clearTimeout(timer);
+            started = false;
+            preloadImages().then(startSequence);
+          }
+
+          function updateViewport() {
+            viewportTick = false;
+            var section = document.getElementById(cfg.sectionId);
+            var sentinel = document.getElementById(cfg.sentinelId);
+            if (!section || !sentinel) return;
+
+            var rect = sentinel.getBoundingClientRect();
+            if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+              if (expanded) {
+                expanded = false;
+                section.classList.remove("is-in-view");
+              }
+              return;
             }
+
+            var anchorY = rect.top + rect.height * 0.5;
+            var viewportCenterY = window.innerHeight * 0.5;
+            var centerOffset = Math.abs(anchorY - viewportCenterY);
+            var enterThreshold = window.innerHeight * 0.1;
+            var leaveThreshold = window.innerHeight * 0.22;
+
+            if (!expanded && centerOffset < enterThreshold) {
+              expanded = true;
+            } else if (expanded && centerOffset > leaveThreshold) {
+              expanded = false;
+            }
+
+            section.classList.toggle("is-in-view", expanded);
           }
 
-          grid.innerHTML = "";
-          steps.forEach(function (step) {
-            var article = document.createElement("article");
-            article.className = "bi-process__item";
-            var h3 = document.createElement("h3");
-            var titleDeSpan = document.createElement("span");
-            titleDeSpan.className = "de-t";
-            titleDeSpan.textContent = step.titleDe;
-            var titleEnSpan = document.createElement("span");
-            titleEnSpan.className = "en-t";
-            titleEnSpan.textContent = step.titleEn || step.titleDe;
-            h3.appendChild(titleDeSpan);
-            h3.appendChild(titleEnSpan);
-            var p = document.createElement("p");
-            var bodyDeSpan = document.createElement("span");
-            bodyDeSpan.className = "de-t";
-            bodyDeSpan.textContent = step.bodyDe;
-            var bodyEnSpan = document.createElement("span");
-            bodyEnSpan.className = "en-t";
-            bodyEnSpan.textContent = step.bodyEn || step.bodyDe;
-            p.appendChild(bodyDeSpan);
-            p.appendChild(bodyEnSpan);
-            article.appendChild(h3);
-            article.appendChild(p);
-            grid.appendChild(article);
-          });
+          function queueViewportUpdate() {
+            if (viewportTick) return;
+            viewportTick = true;
+            window.requestAnimationFrame(updateViewport);
+          }
+
+          function initViewport() {
+            var section = document.getElementById(cfg.sectionId);
+            if (!section) return;
+            updateViewport();
+            window.addEventListener("scroll", queueViewportUpdate, { passive: true });
+            window.addEventListener("resize", queueViewportUpdate);
+          }
+
+          function setFrames(nextFrames) {
+            frames = nextFrames;
+            initSequence();
+          }
+
+          return {
+            initSequence: initSequence,
+            initViewport: initViewport,
+            setFrames: setFrames,
+          };
+        }
+
+        var rocketController = createRocketScienceController({
+          sectionId: "bi-rocket-works",
+          sentinelId: "bi-rocket-science-sentinel",
+          bgId: "bi-rocket-science-bg",
+          wordDeId: "bi-rocket-science-word-de",
+          wordEnId: "bi-rocket-science-word-en",
+          frames: ROCKET_INTERIOR_FRAMES,
+        });
+
+        function updateRocketSections(serviceKey) {
+          var isHochbau = serviceKey === "bi-pricing-hochbau";
+          var mtvLabel = document.getElementById("bi-rocket-mtv-label");
+          var pitch = document.getElementById("bi-rocket-pitch");
+          if (mtvLabel) {
+            mtvLabel.textContent = isHochbau ? "BIIG ROCKET HOCHBAU WORKS" : "BIIG ROCKET INTERIOR WORKS";
+          }
+          if (pitch) {
+            pitch.hidden = isHochbau;
+          }
+          rocketController.setFrames(isHochbau ? ROCKET_HOCHBAU_FRAMES : ROCKET_INTERIOR_FRAMES);
+        }
+
+        function initRocketScienceSequence() {
+          updateRocketSections(activeServiceKey);
+        }
+
+        function initRocketScienceViewport() {
+          rocketController.initViewport();
+        }
+
+        function initWhatsappAssessmentCta() {
+          var link = document.getElementById("whatsapp-cta");
+          if (!link) return;
+          var phoneNumber = "49XXXXXXXXXX";
+          var messageDe =
+            "Hallo Joscha, ich schicke dir 1 Foto und 3 Sätze zur Idee.\n\n" +
+            "(Foto hänge ich gleich an)";
+          var messageEn =
+            "Hello Joscha, I'm sending you 1 photo and 3 sentences about my idea.\n\n" +
+            "(I will attach a photo right away)";
+          var lang = getLang();
+          var message = lang === "en" ? messageEn : messageDe;
+          link.href = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
         }
 
         function applyPricingFilter(serviceKey) {
@@ -7166,6 +7916,7 @@
           if (!portfolio || !filter) return;
 
           activeServiceKey = serviceKey;
+          portfolio.setAttribute("data-bi-active-service", serviceKey);
 
           portfolio.classList.add("bi-portfolio--service-filter");
           portfolio.classList.remove("bi-portfolio--hochbau-expanded");
@@ -7173,14 +7924,35 @@
             tile.classList.remove("bi-tile--service-visible");
           });
 
+          updateServiceProjectTileImages(serviceKey);
+          initHochbauIndividualTiles();
+
+          if (filter.hochbau) {
+            placeHochbauTrailingTiles();
+          } else {
+            restoreHochbauTrailingTiles();
+          }
+
           if (filter.hochbau) {
             portfolio.classList.add("bi-portfolio--hochbau-expanded");
             document.querySelectorAll(".bi-tile--hochbau-item").forEach(function (tile) {
               tile.classList.add("bi-tile--service-visible");
             });
+            if (filter.tiles) {
+              filter.tiles.forEach(function (projectId) {
+                var extraTile = findPortfolioTile(projectId);
+                if (extraTile) extraTile.classList.add("bi-tile--service-visible");
+              });
+            }
           } else if (filter.tiles) {
+            var showsHochbauTiles = filter.tiles.some(function (projectId) {
+              return HOCHBAU_IDS.indexOf(projectId) !== -1;
+            });
+            if (showsHochbauTiles) {
+              portfolio.classList.add("bi-portfolio--hochbau-expanded");
+            }
             filter.tiles.forEach(function (projectId) {
-              var tile = portfolio.querySelector('[data-bi-project="' + projectId + '"]');
+              var tile = findPortfolioTile(projectId);
               if (tile) tile.classList.add("bi-tile--service-visible");
             });
           }
@@ -7201,14 +7973,11 @@
           applyPricingFilter(serviceKey);
           if (konfiguratorLede) konfiguratorLede.classList.add("is-visible");
 
-          renderProcessSteps(serviceKey);
           initMobileTileCarousels({ force: true });
           updateMobileNavTransparency();
+          updateRocketSections(serviceKey);
 
-          var scrollTarget =
-            serviceKey === "bi-pricing-moebel"
-              ? document.getElementById("bi-process") || portfolio
-              : portfolio;
+          var scrollTarget = portfolio;
           if (scrollTarget) {
             window.requestAnimationFrame(function () {
               scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -7367,7 +8136,7 @@
           initHochbauCollage();
           initHochbauIndividualTiles();
           initMobileTileCarousels({ force: true });
-          renderProcessSteps(activeServiceKey);
+          initWhatsappAssessmentCta();
           initHeroSlider();
           if (openOfferId) {
             openOfferPopup(openOfferId);
@@ -7559,6 +8328,8 @@
         if (document.readyState === "loading") {
           document.addEventListener("DOMContentLoaded", function () {
             placeHeroSoundControl();
+            initRocketScienceSequence();
+            initRocketScienceViewport();
             applyLang();
             updateNavHeroState();
             updateMobileNavTransparency();
@@ -7569,6 +8340,8 @@
           });
         } else {
           placeHeroSoundControl();
+          initRocketScienceSequence();
+          initRocketScienceViewport();
           applyLang();
           updateNavHeroState();
           updateMobileNavTransparency();
@@ -7582,5 +8355,5 @@
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
     <script src="biig-interior/bk-i18n.js" defer></script>
     <script src="biig-interior/biig-konfigurator.js" defer></script>
-  <!-- biig-export 2026-07-03T09:08Z --><script src="biig-kunst-link-fix.js"></script></body>
+  <!-- biig-export 2026-07-15T08:16Z --><script src="biig-kunst-link-fix.js"></script></body>
 </html>
