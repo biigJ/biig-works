@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../wolfganggrope.css" />
       <link rel="stylesheet" href="../biig-interior/biig-shared.css" />
+    <link rel="preload" as="image" href="/assets/wolfgang-grope/WolfgangGrope-jung-1000.webp" fetchpriority="low" />
+    <link rel="preload" as="image" href="/assets/wolfgang-grope/WolfgangGrope-alt-1000.webp" fetchpriority="low" />
   </head>
   <body class="wga-page biig-subpage de">
     <header class="nav wga-nav" aria-label="Wolfgang Grope Kunstwerke">
@@ -147,21 +149,23 @@
         <div class="wga-bio__photos" aria-hidden="true">
           <img
             class="wga-bio__photo"
-            src="/assets/wolfgang-grope/WolfgangGrope-jung.png"
+            src="/assets/wolfgang-grope/WolfgangGrope-jung-1000.webp"
+            data-fc-fallback="/assets/wolfgang-grope/WolfgangGrope-jung.png"
             alt=""
             width="800"
             height="1000"
             decoding="async"
-            loading="lazy"
+            fetchpriority="low"
           />
           <img
             class="wga-bio__photo"
-            src="/assets/wolfgang-grope/WolfgangGrope-alt.jpg"
+            src="/assets/wolfgang-grope/WolfgangGrope-alt-1000.webp"
+            data-fc-fallback="/assets/wolfgang-grope/WolfgangGrope-alt.jpg"
             alt=""
             width="800"
             height="1000"
             decoding="async"
-            loading="lazy"
+            fetchpriority="low"
           />
         </div>
         <h2 id="wga-bio-title" class="wga-bio__title"><span class="de-t">Lebenslauf</span><span class="en-t">CV</span></h2>
@@ -193,5 +197,5 @@
     <script src="../data/wga-bio.js"></script>
     <script src="../fc-swipe-slider.js" defer></script>
     <script src="../wolfganggrope.js" defer></script>
-  <!-- biig-export 2026-07-15T08:16Z --><script src="../biig-kunst-link-fix.js"></script></body>
+  <!-- biig-export 2026-07-16T21:47Z --><script src="../biig-kunst-link-fix.js"></script></body>
 </html>
